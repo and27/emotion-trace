@@ -14,4 +14,13 @@ describe("createEmotionalEntry", () => {
       expect.arrayContaining(["frustration", "enthusiasm"])
     );
   });
+
+  it("ignores invalid emotions", () => {
+    const entry = createEmotionalEntry({
+      emotions: ["frustration", "inventada"],
+      contexts: [],
+    });
+
+    expect(entry.emotions.map((e) => e.id)).toEqual(["frustration"]);
+  });
 });
