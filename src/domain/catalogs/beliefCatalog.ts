@@ -1,4 +1,4 @@
-import type { Belief } from "./Belief";
+import { Belief } from "../belief/Belief";
 
 export const beliefCatalog: Belief[] = [
   { id: "capable", statement: "I can handle this.", categoryId: "self" },

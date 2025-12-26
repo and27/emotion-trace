@@ -8,7 +8,9 @@ describe("createAndSaveEmotionalEntry", () => {
 
     const entry = await createAndSaveEmotionalEntry(
       {
-        emotions: ["frustration"],
+        emotions: [
+          { id: "anxiety", label: "Anxiety", family: "fear", arousal: "high" },
+        ],
         contexts: [],
         bodySensations: [{ sensation: "tension", bodyArea: "chest" }],
       },

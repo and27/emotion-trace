@@ -8,13 +8,17 @@ describe("getAllEmotionalEntries", () => {
     const repo = new InMemoryEmotionalEntryRepository();
 
     const entry1 = createEmotionalEntry({
-      emotions: ["frustration"],
+      emotions: [
+        { id: "anxiety", label: "Anxiety", family: "fear", arousal: "high" },
+      ],
       contexts: [],
       bodySensations: [{ sensation: "tension", bodyArea: "chest" }],
     });
 
     const entry2 = createEmotionalEntry({
-      emotions: ["enthusiasm"],
+      emotions: [
+        { id: "fear", label: "Fear", family: "fear", arousal: "high" },
+      ],
       contexts: [],
       bodySensations: [{ sensation: "heat", bodyArea: "head" }],
     });

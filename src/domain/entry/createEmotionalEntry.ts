@@ -2,9 +2,10 @@ import { EmotionalEntry } from "./EmotionalEntry";
 import { EMOTIONS } from "../catalogs/emotionCatalog";
 import { ContextTag } from "../context/ContextTag";
 import { BodySensation } from "../sensation/BodySensation";
+import { Emotion } from "../emotion/Emotion";
 
 type CreateEmotionalEntryInput = {
-  emotions: string[];
+  emotions: Emotion[];
   contexts: string[];
   bodySensations: BodySensation[];
 };
@@ -23,9 +24,8 @@ export function createEmotionalEntry(
     throw new Error("Body areas must be unique");
   }
 
-  const emotions = EMOTIONS.filter((emotion) =>
-    input.emotions.includes(emotion.id)
-  );
+  const emotionIds = new Set(input.emotions.map((emotion) => emotion.id));
+  const emotions = EMOTIONS.filter((emotion) => emotionIds.has(emotion.id));
 
   const entry: EmotionalEntry = {
     id: crypto.randomUUID(),

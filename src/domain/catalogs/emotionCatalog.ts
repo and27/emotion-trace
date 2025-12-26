@@ -1,12 +1,4 @@
-import { ArousalLevel } from "./arousal";
-import { EmotionFamily } from "./emotionFamilies";
-
-export type Emotion = {
-  id: string;
-  label: string;
-  family: EmotionFamily;
-  arousal: ArousalLevel;
-};
+import { Emotion } from "../emotion/Emotion";
 
 export const EMOTIONS: Emotion[] = [
   // Fear / high
