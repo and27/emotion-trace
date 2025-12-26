@@ -42,9 +42,11 @@ export function SelectEmotionsScreen({ value, onChange, onContinue }: Props) {
                   <button
                     key={emotion.id}
                     onClick={() => toggleEmotion(emotion)}
-                    className={`px-3 py-1 rounded border text-sm
+                    className={`px-3 py-1 rounded border text-sm transition
                       ${
-                        isSelected ? "bg-black text-white" : "hover:bg-gray-100"
+                        isSelected
+                          ? "bg-foreground text-background border-foreground"
+                          : "border-surface-border text-foreground hover:bg-surface"
                       }`}
                   >
                     {emotion.label}

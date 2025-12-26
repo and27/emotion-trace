@@ -43,11 +43,11 @@ export function SelectBeliefsScreen({ value, onChange, onContinue }: Props) {
                   <button
                     key={belief.id}
                     onClick={() => toggleBelief(belief)}
-                    className={`px-3 py-1 rounded border text-sm
+                    className={`px-3 py-1 rounded border text-sm transition
                       ${
                         isSelected
-                          ? "bg-black text-white"
-                          : "hover:bg-gray-100"
+                          ? "bg-foreground text-background border-foreground"
+                          : "border-surface-border text-foreground hover:bg-surface"
                       }`}
                   >
                     {belief.label}

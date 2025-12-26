@@ -45,12 +45,51 @@ export function EntriesListScreen() {
                 {new Date(entry.createdAt).toLocaleString()}
               </div>
 
-              <div className="mt-4 flex flex-wrap gap-2">
-                {entry.bodySensations.map((bs, i) => (
-                  <Chip key={`${bs.bodyArea}-${bs.sensation}-${i}`}>
-                    {bs.sensation} · {bs.bodyArea}
-                  </Chip>
-                ))}
+              <div className="mt-4 space-y-4">
+                <div>
+                  <div className="text-xs font-semibold uppercase text-text-muted">
+                    Body sensations
+                  </div>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {entry.bodySensations.map((bs, i) => (
+                      <Chip key={`${bs.bodyArea}-${bs.sensation}-${i}`}>
+                        {bs.sensation} · {bs.bodyArea}
+                      </Chip>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <div className="text-xs font-semibold uppercase text-text-muted">
+                    Emotions
+                  </div>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {entry.emotions.length === 0 ? (
+                      <Chip tone="neutral">None</Chip>
+                    ) : (
+                      entry.emotions.map((emotion) => (
+                        <Chip key={emotion.id}>{emotion.label}</Chip>
+                      ))
+                    )}
+                  </div>
+                </div>
+
+                {entry.beliefs && (
+                  <div>
+                    <div className="text-xs font-semibold uppercase text-text-muted">
+                      Beliefs
+                    </div>
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {entry.beliefs?.length === 0 ? (
+                        <Chip tone="neutral">None</Chip>
+                      ) : (
+                        entry.beliefs?.map((belief) => (
+                          <Chip key={belief.id}>{belief.label}</Chip>
+                        ))
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
             </Card>
           </li>
