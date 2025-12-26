@@ -1,0 +1,1 @@
+export type BodyArea = "head" | "chest" | "arms" | "abdomen" | "legs";
