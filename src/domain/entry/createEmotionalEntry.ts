@@ -5,17 +5,28 @@ import { Sensation } from "../sensation/Sensation";
 import { BodyArea } from "../sensation/BodyArea";
 import { SENSATIONS } from "../sensation/sensationCatalog";
 import { BODY_AREAS } from "../sensation/BodyAreaCatalog";
+import { BodySensation } from "../sensation/BodySensation";
 
 type CreateEmotionalEntryInput = {
   emotions: string[];
   contexts: string[];
-  sensation?: Sensation;
-  bodyArea?: BodyArea;
+  bodySensations: BodySensation[];
 };
 
 export function createEmotionalEntry(
   input: CreateEmotionalEntryInput
 ): EmotionalEntry {
+  if (!input.bodySensations || input.bodySensations.length === 0) {
+    throw new Error("At least one body sensation is required");
+  }
+
+  const areas = input.bodySensations.map((bs) => bs.bodyArea);
+  const uniqueAreas = new Set(areas);
+
+  if (areas.length !== uniqueAreas.size) {
+    throw new Error("Body areas must be unique");
+  }
+
   const emotions = EMOTIONS.filter((emotion) =>
     input.emotions.includes(emotion.id)
   );
@@ -25,17 +36,8 @@ export function createEmotionalEntry(
     createdAt: Date.now(),
     emotions,
     contexts: input.contexts as ContextTag[],
+    bodySensations: input.bodySensations,
   };
-
-  if (input.sensation && input.bodyArea) {
-    const isValidSensation = SENSATIONS.includes(input.sensation);
-    const isValidBodyArea = BODY_AREAS.includes(input.bodyArea);
-
-    if (isValidSensation && isValidBodyArea) {
-      entry.sensation = input.sensation;
-      entry.bodyArea = input.bodyArea;
-    }
-  }
 
   return entry;
 }

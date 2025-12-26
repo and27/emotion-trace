@@ -6,7 +6,8 @@ describe("createEmotionalEntry", () => {
     const entry = createEmotionalEntry({
       emotions: ["frustration", "enthusiasm"],
       contexts: ["work"],
-    });
+      bodySensations: [{ sensation: "tension", bodyArea: "chest" }],
+    } as any);
 
     expect(entry.id).toBeDefined();
     expect(entry.createdAt).toBeTypeOf("number");
@@ -19,66 +20,45 @@ describe("createEmotionalEntry", () => {
     const entry = createEmotionalEntry({
       emotions: ["frustration", "inventada"],
       contexts: [],
-    });
+      bodySensations: [{ sensation: "tension", bodyArea: "chest" }],
+    } as any);
 
     expect(entry.emotions.map((e) => e.id)).toEqual(["frustration"]);
   });
 
-  it("stores sensation and bodyArea when both are provided", () => {
-    const entry = createEmotionalEntry({
-      emotions: ["frustration"],
-      contexts: [],
-      sensation: "tension",
-      bodyArea: "chest",
-    } as any);
-
-    expect(entry.sensation).toBe("tension");
-    expect(entry.bodyArea).toBe("chest");
+  it("requires at least one body sensation", () => {
+    expect(() =>
+      createEmotionalEntry({
+        emotions: ["frustration"],
+        contexts: [],
+        bodySensations: [],
+      } as any)
+    ).toThrow();
   });
 
-  it("does not allow sensation without body area", () => {
+  it("allows multiple body sensations with different areas", () => {
     const entry = createEmotionalEntry({
       emotions: ["frustration"],
       contexts: [],
-      sensation: "tension",
+      bodySensations: [
+        { sensation: "tension", bodyArea: "chest" },
+        { sensation: "heaviness", bodyArea: "stomach" },
+      ],
     } as any);
 
-    expect(entry.sensation).toBeUndefined();
-    expect(entry.bodyArea).toBeUndefined();
+    expect(entry.bodySensations).toHaveLength(2);
   });
 
-  it("does not allow body area without sensation", () => {
-    const entry = createEmotionalEntry({
-      emotions: ["frustration"],
-      contexts: [],
-      bodyArea: "chest",
-    } as any);
-
-    expect(entry.sensation).toBeUndefined();
-    expect(entry.bodyArea).toBeUndefined();
-  });
-
-  it("ignores invalid sensations", () => {
-    const entry = createEmotionalEntry({
-      emotions: ["frustration"],
-      contexts: [],
-      sensation: "inventada",
-      bodyArea: "chest",
-    } as any);
-
-    expect(entry.sensation).toBeUndefined();
-    expect(entry.bodyArea).toBeUndefined();
-  });
-
-  it("ignores invalid body area", () => {
-    const entry = createEmotionalEntry({
-      emotions: ["frustration"],
-      contexts: [],
-      sensation: "tension",
-      bodyArea: "antena",
-    } as any);
-
-    expect(entry.sensation).toBeUndefined();
-    expect(entry.bodyArea).toBeUndefined();
+  it("does not allow repeated body areas", () => {
+    expect(() =>
+      createEmotionalEntry({
+        emotions: ["frustration"],
+        contexts: [],
+        bodySensations: [
+          { sensation: "tension", bodyArea: "chest" },
+          { sensation: "emptiness", bodyArea: "chest" },
+        ],
+      } as any)
+    ).toThrow();
   });
 });
