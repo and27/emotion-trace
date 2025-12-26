@@ -23,4 +23,38 @@ describe("createEmotionalEntry", () => {
 
     expect(entry.emotions.map((e) => e.id)).toEqual(["frustration"]);
   });
+
+  it("stores sensation and bodyArea when both are provided", () => {
+    const entry = createEmotionalEntry({
+      emotions: ["frustration"],
+      contexts: [],
+      sensation: "tension",
+      bodyArea: "chest",
+    } as any);
+
+    expect(entry.sensation).toBe("tension");
+    expect(entry.bodyArea).toBe("chest");
+  });
+
+  it("does not allow sensation without body area", () => {
+    const entry = createEmotionalEntry({
+      emotions: ["frustration"],
+      contexts: [],
+      sensation: "tension",
+    } as any);
+
+    expect(entry.sensation).toBeUndefined();
+    expect(entry.bodyArea).toBeUndefined();
+  });
+
+  it("does not allow body area without sensation", () => {
+    const entry = createEmotionalEntry({
+      emotions: ["frustration"],
+      contexts: [],
+      bodyArea: "chest",
+    } as any);
+
+    expect(entry.sensation).toBeUndefined();
+    expect(entry.bodyArea).toBeUndefined();
+  });
 });
