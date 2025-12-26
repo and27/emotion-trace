@@ -66,6 +66,7 @@ export function CreateBodySensationsScreen({
 
     await create({
       emotions: [],
+      beliefs: [],
       contexts: [],
       bodySensations: selected,
     });

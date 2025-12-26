@@ -1,10 +1,11 @@
 import { createEmotionalEntry } from "../../domain/entry/createEmotionalEntry";
 import { EmotionalEntryRepository } from "../../persistence/repository/EmotionalEntryRepository";
 import { BodySensation } from "../../domain/sensation/BodySensation";
-import { Emotion } from "@/src/domain";
+import { Belief, Emotion } from "@/src/domain";
 
 type CreateAndSaveEmotionalEntryInput = {
   emotions: Emotion[];
+  beliefs: Belief[];
   contexts: string[];
   bodySensations: BodySensation[];
 };

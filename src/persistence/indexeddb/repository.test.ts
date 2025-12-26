@@ -10,6 +10,7 @@ describe("DexieEmotionalEntryRepository", () => {
       emotions: [
         { id: "anxiety", label: "Anxiety", family: "fear", arousal: "high" },
       ],
+      beliefs: [],
       contexts: [],
       bodySensations: [{ bodyArea: "chest", sensation: "cold" }],
     });

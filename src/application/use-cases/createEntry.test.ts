@@ -11,6 +11,7 @@ describe("createAndSaveEmotionalEntry", () => {
         emotions: [
           { id: "anxiety", label: "Anxiety", family: "fear", arousal: "high" },
         ],
+        beliefs: [],
         contexts: [],
         bodySensations: [{ sensation: "tension", bodyArea: "chest" }],
       },

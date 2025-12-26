@@ -11,6 +11,7 @@ describe("getAllEmotionalEntries", () => {
       emotions: [
         { id: "anxiety", label: "Anxiety", family: "fear", arousal: "high" },
       ],
+      beliefs: [],
       contexts: [],
       bodySensations: [{ sensation: "tension", bodyArea: "chest" }],
     });
@@ -19,6 +20,7 @@ describe("getAllEmotionalEntries", () => {
       emotions: [
         { id: "fear", label: "Fear", family: "fear", arousal: "high" },
       ],
+      beliefs: [],
       contexts: [],
       bodySensations: [{ sensation: "heat", bodyArea: "head" }],
     });

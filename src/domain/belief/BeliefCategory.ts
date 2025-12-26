@@ -1,4 +1,8 @@
-export type BeliefCategoryId = "self" | "world" | "future";
+export type BeliefCategoryId =
+  | "self_worth"
+  | "responsibility"
+  | "safety"
+  | "control";
 
 export interface BeliefCategory {
   id: BeliefCategoryId;

@@ -23,6 +23,7 @@ export function CreateEntryFlowScreen() {
   async function handleSave() {
     await create({
       emotions: emotions.map((e) => e),
+      beliefs: [],
       contexts: [],
       bodySensations,
     });
