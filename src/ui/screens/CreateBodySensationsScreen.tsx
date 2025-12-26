@@ -1,18 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { createAndSaveEmotionalEntry } from "../../application/use-cases/createAndSaveEmotionalEntry";
-import { DexieEmotionalEntryRepository } from "../../persistence/indexeddb/DexieEmotionalEntryRepository";
+import { useCreateEmotionalEntry } from "../hooks/useCreateEmotionalEntry";
+import { BodySensation } from "../../domain/sensation/BodySensation";
 
 const BODY_AREAS = ["chest", "stomach", "head"] as const;
 const SENSATIONS = ["tension", "heaviness", "heat"] as const;
 
 export function CreateBodySensationsScreen() {
-  const [selected, setSelected] = useState<
-    { bodyArea: string; sensation: string }[]
-  >([]);
+  const { create } = useCreateEmotionalEntry();
 
-  function addSensation(bodyArea: string, sensation: string) {
+  const [selected, setSelected] = useState<BodySensation[]>([]);
+
+  function addSensation(
+    bodyArea: BodySensation["bodyArea"],
+    sensation: BodySensation["sensation"]
+  ) {
     setSelected((prev) => [
       ...prev.filter((s) => s.bodyArea !== bodyArea),
       { bodyArea, sensation },
@@ -20,16 +23,11 @@ export function CreateBodySensationsScreen() {
   }
 
   async function save() {
-    const repo = new DexieEmotionalEntryRepository();
-
-    await createAndSaveEmotionalEntry(
-      {
-        emotions: [],
-        contexts: [],
-        bodySensations: selected as any,
-      },
-      repo
-    );
+    await create({
+      emotions: [],
+      contexts: [],
+      bodySensations: selected,
+    });
 
     alert("Saved!");
   }
@@ -53,7 +51,9 @@ export function CreateBodySensationsScreen() {
                   key={s}
                   onClick={() => addSensation(area, s)}
                   className={`px-3 py-1 rounded border text-sm
-                ${isSelected ? "bg-black text-white" : "hover:bg-gray-100"}`}
+                    ${
+                      isSelected ? "bg-black text-white" : "hover:bg-gray-100"
+                    }`}
                 >
                   {s}
                 </button>
