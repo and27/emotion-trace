@@ -1,33 +1,58 @@
 "use client";
 
 import { useEmotionalEntries } from "../hooks/useEmotionalEntries";
+import { Card } from "../components/Card";
+import { Chip } from "../components/Chip";
+import { SectionTitle } from "../components/SectionTitle";
 
 export function EntriesListScreen() {
   const { entries, loading } = useEmotionalEntries();
 
-  if (loading) return <p className="p-4">Loading…</p>;
+  if (loading) {
+    return (
+      <div className="mx-auto max-w-3xl px-6 py-10">
+        <div className="text-sm text-text-muted">Loading...</div>
+      </div>
+    );
+  }
 
   return (
-    <div className="p-6 max-w-xl mx-auto">
-      <h1 className="text-xl font-semibold mb-4">Emotional Entries</h1>
+    <div className="mx-auto max-w-3xl px-6 py-10">
+      <div className="mb-8 flex items-end justify-between">
+        <div>
+          <SectionTitle as="h1" className="text-2xl">
+            Emotional Entries
+          </SectionTitle>
+          <p className="mt-2 text-sm text-text-muted">
+            A snapshot of your recent check-ins.
+          </p>
+        </div>
+      </div>
 
-      {entries.length === 0 && <p className="text-gray-500">No entries yet</p>}
+      {entries.length === 0 && (
+        <Card>
+          <p className="text-sm text-text-muted">
+            No entries yet. Start with a new check-in.
+          </p>
+        </Card>
+      )}
 
-      <ul className="space-y-4">
+      <ul className="space-y-6">
         {entries.map((entry) => (
-          <li key={entry.id} className="border rounded-lg p-4">
-            <div className="text-sm text-gray-500 mb-2">
-              {new Date(entry.createdAt).toLocaleString()}
-            </div>
+          <li key={entry.id}>
+            <Card>
+              <div className="text-xs font-medium uppercase tracking-wide text-text-muted">
+                {new Date(entry.createdAt).toLocaleString()}
+              </div>
 
-            <ul className="space-y-1">
-              {entry.bodySensations.map((bs, i) => (
-                <li key={i} className="text-sm">
-                  {bs.sensation} —{" "}
-                  <span className="text-gray-500">{bs.bodyArea}</span>
-                </li>
-              ))}
-            </ul>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {entry.bodySensations.map((bs, i) => (
+                  <Chip key={`${bs.bodyArea}-${bs.sensation}-${i}`}>
+                    {bs.sensation} · {bs.bodyArea}
+                  </Chip>
+                ))}
+              </div>
+            </Card>
           </li>
         ))}
       </ul>

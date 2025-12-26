@@ -1,4 +1,5 @@
 import { AppProviders } from "../ui/providers/AppProviders";
+import "./globals.css";
 
 export default function RootLayout({
   children,

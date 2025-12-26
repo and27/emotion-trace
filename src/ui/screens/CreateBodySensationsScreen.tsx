@@ -1,18 +1,31 @@
 "use client";
 
-import { useState } from "react";
-import type { BodySensation } from "../../domain/sensation/BodySensation";
+import { useEffect, useState } from "react";
+import { useCreateEmotionalEntry } from "../hooks/useCreateEmotionalEntry";
+import { BodySensation } from "../../domain/sensation/BodySensation";
+import { SensationChoice } from "../components/SensationChoice";
 
 const BODY_AREAS = ["chest", "stomach", "head"] as const;
 const SENSATIONS = ["tension", "heaviness", "heat"] as const;
 
-type Props = {
-  value: BodySensation[];
-  onContinue: (value: BodySensation[]) => void;
+type CreateBodySensationsScreenProps = {
+  value?: BodySensation[];
+  onContinue?: (value: BodySensation[]) => void;
 };
 
-export function CreateBodySensationsScreen({ value, onContinue }: Props) {
-  const [selected, setSelected] = useState<BodySensation[]>(value);
+export function CreateBodySensationsScreen({
+  value,
+  onContinue,
+}: CreateBodySensationsScreenProps) {
+  const { create } = useCreateEmotionalEntry();
+
+  const [selected, setSelected] = useState<BodySensation[]>(value ?? []);
+
+  useEffect(() => {
+    if (value) {
+      setSelected(value);
+    }
+  }, [value]);
 
   function addSensation(
     bodyArea: BodySensation["bodyArea"],
@@ -22,6 +35,21 @@ export function CreateBodySensationsScreen({ value, onContinue }: Props) {
       ...prev.filter((s) => s.bodyArea !== bodyArea),
       { bodyArea, sensation },
     ]);
+  }
+
+  async function save() {
+    if (onContinue) {
+      onContinue(selected);
+      return;
+    }
+
+    await create({
+      emotions: [],
+      contexts: [],
+      bodySensations: selected,
+    });
+
+    alert("Saved!");
   }
 
   return (
@@ -39,16 +67,12 @@ export function CreateBodySensationsScreen({ value, onContinue }: Props) {
               );
 
               return (
-                <button
+                <SensationChoice
                   key={s}
-                  onClick={() => addSensation(area, s)}
-                  className={`px-3 py-1 rounded border text-sm
-                    ${
-                      isSelected ? "bg-black text-white" : "hover:bg-gray-100"
-                    }`}
-                >
-                  {s}
-                </button>
+                  label={s}
+                  selected={isSelected}
+                  onSelect={() => addSensation(area, s)}
+                />
               );
             })}
           </div>
@@ -57,10 +81,10 @@ export function CreateBodySensationsScreen({ value, onContinue }: Props) {
 
       <button
         disabled={selected.length === 0}
-        onClick={() => onContinue(selected)}
+        onClick={save}
         className="mt-6 px-4 py-2 bg-black text-white rounded disabled:opacity-40"
       >
-        Continue
+        {onContinue ? "Continue" : "Save"}
       </button>
     </div>
   );
