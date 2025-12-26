@@ -38,7 +38,9 @@ export function EntriesListScreen() {
       )}
 
       <ul className="space-y-6">
-        {entries.map((entry) => (
+        {[...entries]
+          .sort((a, b) => b.createdAt - a.createdAt)
+          .map((entry) => (
           <li key={entry.id}>
             <Card>
               <div className="text-xs font-medium uppercase tracking-wide text-text-muted">
