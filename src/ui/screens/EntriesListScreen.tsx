@@ -1,21 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { EmotionalEntry } from "../../domain/entry/EmotionalEntry";
-import { DexieEmotionalEntryRepository } from "../../persistence/indexeddb/DexieEmotionalEntryRepository";
-import { getAllEmotionalEntries } from "../../application/use-cases/getAllEmotionalEntries";
+import { useEmotionalEntries } from "../hooks/useEmotionalEntries";
 
 export function EntriesListScreen() {
-  const [entries, setEntries] = useState<EmotionalEntry[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const repo = new DexieEmotionalEntryRepository();
-    getAllEmotionalEntries(repo).then((result) => {
-      setEntries(result);
-      setLoading(false);
-    });
-  }, []);
+  const { entries, loading } = useEmotionalEntries();
 
   if (loading) return <p className="p-4">Loading…</p>;
 
