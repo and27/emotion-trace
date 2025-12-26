@@ -1,8 +1,8 @@
 "use client";
 
-import type { Emotion } from "../../domain/catalogs/emotionCatalog";
-import { EMOTIONS } from "../../domain/catalogs/emotionCatalog";
+import type { Emotion } from "../../domain/emotion/Emotion";
 import { EMOTION_FAMILIES } from "../../domain/catalogs/emotionFamilies";
+import { EMOTIONS } from "@/src/domain";
 
 type Props = {
   value: Emotion[];
@@ -24,7 +24,9 @@ export function SelectEmotionsScreen({ value, onChange, onContinue }: Props) {
       <h1 className="text-xl font-semibold mb-6">What emotions are present?</h1>
 
       {EMOTION_FAMILIES.map((family) => {
-        const emotions = EMOTIONS.filter((e) => e.family === family);
+        const emotions = EMOTIONS.filter((e) => e.family === family).sort(
+          (a, b) => a.label.localeCompare(b.label)
+        );
 
         if (emotions.length === 0) return null;
 
