@@ -57,4 +57,16 @@ describe("createEmotionalEntry", () => {
     expect(entry.sensation).toBeUndefined();
     expect(entry.bodyArea).toBeUndefined();
   });
+
+  it("ignores invalid sensations", () => {
+    const entry = createEmotionalEntry({
+      emotions: ["frustration"],
+      contexts: [],
+      sensation: "inventada",
+      bodyArea: "chest",
+    } as any);
+
+    expect(entry.sensation).toBeUndefined();
+    expect(entry.bodyArea).toBeUndefined();
+  });
 });

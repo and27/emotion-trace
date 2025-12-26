@@ -3,6 +3,7 @@ import { EMOTIONS } from "../emotion/emotionCatalog";
 import { ContextTag } from "../context/ContextTag";
 import { Sensation } from "../sensation/Sensation";
 import { BodyArea } from "../sensation/BodyArea";
+import { SENSATIONS } from "../sensation/sensationCatalog";
 
 type CreateEmotionalEntryInput = {
   emotions: string[];
@@ -26,8 +27,12 @@ export function createEmotionalEntry(
   };
 
   if (input.sensation && input.bodyArea) {
-    entry.sensation = input.sensation;
-    entry.bodyArea = input.bodyArea;
+    const isValidSensation = SENSATIONS.includes(input.sensation);
+
+    if (isValidSensation) {
+      entry.sensation = input.sensation;
+      entry.bodyArea = input.bodyArea;
+    }
   }
 
   return entry;
