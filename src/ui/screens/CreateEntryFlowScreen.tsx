@@ -7,8 +7,8 @@ import type { BodySensation } from "../../domain/sensation/BodySensation";
 import type { Emotion } from "../../domain/emotion/Emotion";
 
 import { CreateBodySensationsScreen } from "./CreateBodySensationsScreen";
-import { SelectEmotionsScreen } from "./SelectEmotionsScreen";
 import { useCreateEmotionalEntry } from "../hooks/useCreateEmotionalEntry";
+import { SelectEmotionsScreen } from "./SelectEmotionsScreen";
 
 type Step = "body" | "emotions";
 

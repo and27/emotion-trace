@@ -1,5 +1,5 @@
-import { CreateBodySensationsScreen } from "@/src/ui/screens/CreateBodySensationsScreen";
+import { CreateEntryFlowScreen } from "../../../ui/screens/CreateEntryFlowScreen";
 
 export default function CreatePage() {
-  return <CreateBodySensationsScreen />;
+  return <CreateEntryFlowScreen />;
 }

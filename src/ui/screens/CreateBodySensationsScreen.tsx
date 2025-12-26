@@ -1,16 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { useCreateEmotionalEntry } from "../hooks/useCreateEmotionalEntry";
-import { BodySensation } from "../../domain/sensation/BodySensation";
+import type { BodySensation } from "../../domain/sensation/BodySensation";
 
 const BODY_AREAS = ["chest", "stomach", "head"] as const;
 const SENSATIONS = ["tension", "heaviness", "heat"] as const;
 
-export function CreateBodySensationsScreen() {
-  const { create } = useCreateEmotionalEntry();
+type Props = {
+  value: BodySensation[];
+  onContinue: (value: BodySensation[]) => void;
+};
 
-  const [selected, setSelected] = useState<BodySensation[]>([]);
+export function CreateBodySensationsScreen({ value, onContinue }: Props) {
+  const [selected, setSelected] = useState<BodySensation[]>(value);
 
   function addSensation(
     bodyArea: BodySensation["bodyArea"],
@@ -20,16 +22,6 @@ export function CreateBodySensationsScreen() {
       ...prev.filter((s) => s.bodyArea !== bodyArea),
       { bodyArea, sensation },
     ]);
-  }
-
-  async function save() {
-    await create({
-      emotions: [],
-      contexts: [],
-      bodySensations: selected,
-    });
-
-    alert("Saved!");
   }
 
   return (
@@ -65,10 +57,10 @@ export function CreateBodySensationsScreen() {
 
       <button
         disabled={selected.length === 0}
-        onClick={save}
+        onClick={() => onContinue(selected)}
         className="mt-6 px-4 py-2 bg-black text-white rounded disabled:opacity-40"
       >
-        Save
+        Continue
       </button>
     </div>
   );
