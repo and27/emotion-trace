@@ -9,5 +9,6 @@ export interface EmotionalEntry {
   emotions: Emotion[];
   beliefs: Belief[];
   contexts: ContextTag[];
+  contextNote?: string;
   bodySensations: BodySensation[];
 }

@@ -7,6 +7,7 @@ type Input = {
   emotions: Emotion[];
   beliefs: Belief[];
   contexts: string[];
+  contextNote?: string;
   bodySensations: BodySensation[];
 };
 

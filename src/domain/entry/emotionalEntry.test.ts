@@ -75,6 +75,30 @@ describe("createEmotionalEntry", () => {
     expect(entry.beliefs.map((b) => b.id)).toEqual(["not_safe"]);
   });
 
+  it("stores optional context note", () => {
+    const entry = createEmotionalEntry({
+      emotions: [getEmotion("frustration")],
+      beliefs: [],
+      contexts: [],
+      contextNote: "Se sintio despues de la reunion",
+      bodySensations: [{ sensation: "tension", bodyArea: "chest" }],
+    });
+
+    expect(entry.contextNote).toBe("Se sintio despues de la reunion");
+  });
+
+  it("allows empty context note", () => {
+    const entry = createEmotionalEntry({
+      emotions: [getEmotion("frustration")],
+      beliefs: [],
+      contexts: [],
+      contextNote: "",
+      bodySensations: [{ sensation: "tension", bodyArea: "chest" }],
+    });
+
+    expect(entry.contextNote).toBe("");
+  });
+
   it("requires at least one body sensation", () => {
     expect(() =>
       createEmotionalEntry({

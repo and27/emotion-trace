@@ -10,6 +10,7 @@ type CreateEmotionalEntryInput = {
   emotions: Emotion[];
   beliefs: Belief[];
   contexts: string[];
+  contextNote?: string;
   bodySensations: BodySensation[];
 };
 
@@ -43,6 +44,7 @@ export function createEmotionalEntry(
     emotions,
     beliefs,
     contexts: input.contexts as ContextTag[],
+    contextNote: input.contextNote,
     bodySensations: input.bodySensations,
   };
 
