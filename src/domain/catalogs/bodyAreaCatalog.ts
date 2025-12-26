@@ -1,4 +1,4 @@
-import { BodyArea } from "./BodyArea";
+import { BodyArea } from "../sensation/BodyArea";
 
 export const BODY_AREAS: BodyArea[] = [
   "head",

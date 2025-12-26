@@ -1,4 +1,4 @@
-import { Sensation } from "./Sensation";
+import { Sensation } from "../sensation/Sensation";
 
 export const SENSATIONS: Sensation[] = [
   "tension",

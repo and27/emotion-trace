@@ -1,10 +1,6 @@
 import { EmotionalEntry } from "./EmotionalEntry";
-import { EMOTIONS } from "../emotion/emotionCatalog";
+import { EMOTIONS } from "../catalogs/emotionCatalog";
 import { ContextTag } from "../context/ContextTag";
-import { Sensation } from "../sensation/Sensation";
-import { BodyArea } from "../sensation/BodyArea";
-import { SENSATIONS } from "../sensation/sensationCatalog";
-import { BODY_AREAS } from "../sensation/BodyAreaCatalog";
 import { BodySensation } from "../sensation/BodySensation";
 
 type CreateEmotionalEntryInput = {
