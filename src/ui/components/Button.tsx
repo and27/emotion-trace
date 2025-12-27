@@ -1,7 +1,11 @@
+import * as React from "react";
+import { Slot } from "@radix-ui/react-slot";
+
 type ButtonVariant = "primary" | "secondary" | "ghost";
 
-type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+type ButtonProps = React.ComponentPropsWithoutRef<"button"> & {
   variant?: ButtonVariant;
+  asChild?: boolean;
 };
 
 const baseClassName =
@@ -13,17 +17,21 @@ const variantClassName: Record<ButtonVariant, string> = {
   ghost: "text-foreground hover:bg-surface",
 };
 
-export function Button({
-  variant = "primary",
-  className,
-  ...props
-}: ButtonProps) {
+export const Button = React.forwardRef<
+  React.ComponentRef<"button">,
+  ButtonProps
+>(({ variant = "primary", asChild = false, className, ...props }, ref) => {
+  const Component = asChild ? Slot : "button";
+
   return (
-    <button
+    <Component
+      ref={ref}
       className={`${baseClassName} ${variantClassName[variant]} ${
         className ?? ""
       }`}
       {...props}
     />
   );
-}
+});
+
+Button.displayName = "Button";
