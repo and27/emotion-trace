@@ -9,7 +9,7 @@ type ButtonProps = React.ComponentPropsWithoutRef<"button"> & {
 };
 
 const baseClassName =
-  "inline-flex items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-50";
+  "inline-flex items-center justify-center gap-2 rounded-md px-2 md:px-4 py-2 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-50";
 
 const variantClassName: Record<ButtonVariant, string> = {
   primary: "bg-accent text-accent-contrast",
