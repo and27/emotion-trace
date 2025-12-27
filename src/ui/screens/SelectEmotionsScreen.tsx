@@ -3,6 +3,7 @@
 import type { Emotion } from "../../domain/emotion/Emotion";
 import { EMOTION_FAMILIES } from "../../domain/catalogs/emotionFamilies";
 import { EMOTIONS } from "@/src/domain";
+import { Button } from "../components/Button";
 
 type Props = {
   value: Emotion[];
@@ -59,13 +60,13 @@ export function SelectEmotionsScreen({ value, onChange, onContinue }: Props) {
       })}
 
       {onContinue && (
-        <button
+        <Button
           disabled={value.length === 0}
           onClick={onContinue}
           className="mt-4 px-4 py-2 bg-black text-white rounded disabled:opacity-40"
         >
           Continue
-        </button>
+        </Button>
       )}
     </div>
   );

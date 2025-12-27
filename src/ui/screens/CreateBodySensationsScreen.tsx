@@ -6,6 +6,7 @@ import type { BodySensation } from "../../domain/sensation/BodySensation";
 import type { BodyArea } from "../../domain/sensation/BodyArea";
 import type { Sensation } from "../../domain/sensation/Sensation";
 import { SensationChoice } from "../components/SensationChoice";
+import { Button } from "../components/Button";
 
 const BODY_AREAS = ["chest", "stomach", "head"] as const;
 const SENSATIONS = ["tension", "heaviness", "heat"] as const;
@@ -139,21 +140,17 @@ export function CreateBodySensationsScreen({
         )}
       </div>
 
-      <button
+      <Button
+        variant="secondary"
         disabled={!activeArea || !activeSensation}
         onClick={addSelection}
-        className="px-4 py-2 bg-gray-900 text-white rounded disabled:opacity-40"
       >
         Add selection
-      </button>
+      </Button>
 
-      <button
-        disabled={selected.length === 0}
-        onClick={save}
-        className="mt-4 px-4 py-2 bg-black text-white rounded disabled:opacity-40"
-      >
+      <Button disabled={selected.length === 0} onClick={save}>
         {onContinue ? "Continue" : "Save"}
-      </button>
+      </Button>
     </div>
   );
 }
