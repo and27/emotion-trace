@@ -1,15 +1,16 @@
 import { EmotionalEntry } from "./EmotionalEntry";
 import { BELIEFS } from "../catalogs/beliefCatalog";
+import { CONTEXT_TAGS } from "../catalogs/contextCatalog";
+import type { ContextTag } from "../context/ContextTag";
 import { EMOTIONS } from "../catalogs/emotionCatalog";
 import type { Belief } from "../belief/Belief";
-import { ContextTag } from "../context/ContextTag";
 import { BodySensation } from "../sensation/BodySensation";
 import { Emotion } from "../emotion/Emotion";
 
 type CreateEmotionalEntryInput = {
   emotions: Emotion[];
   beliefs: Belief[];
-  contexts: string[];
+  contexts: ContextTag[];
   contextNote?: string;
   bodySensations: BodySensation[];
 };
@@ -38,12 +39,19 @@ export function createEmotionalEntry(
 
   const beliefs = BELIEFS.filter((belief) => beliefIds.includes(belief.id));
 
+  const contextIds = input.contexts.map((tag) => tag.id);
+  if (new Set(contextIds).size !== contextIds.length) {
+    throw new Error("Context tags must be unique");
+  }
+
+  const contexts = CONTEXT_TAGS.filter((tag) => contextIds.includes(tag.id));
+
   const entry: EmotionalEntry = {
     id: crypto.randomUUID(),
     createdAt: Date.now(),
     emotions,
     beliefs,
-    contexts: input.contexts as ContextTag[],
+    contexts,
     contextNote: input.contextNote,
     bodySensations: input.bodySensations,
   };

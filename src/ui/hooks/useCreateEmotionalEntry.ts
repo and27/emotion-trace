@@ -1,12 +1,12 @@
 import { createAndSaveEmotionalEntry } from "../../application/use-cases/createAndSaveEmotionalEntry";
 import { useEmotionalEntryRepository } from "../providers/AppProviders";
 import { BodySensation } from "../../domain/sensation/BodySensation";
-import { Belief, Emotion } from "@/src/domain";
+import { Belief, ContextTag, Emotion } from "@/src/domain";
 
 type Input = {
   emotions: Emotion[];
   beliefs: Belief[];
-  contexts: string[];
+  contexts: ContextTag[];
   contextNote?: string;
   bodySensations: BodySensation[];
 };

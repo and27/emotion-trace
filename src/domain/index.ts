@@ -4,6 +4,7 @@ export * from "./catalogs/emotionCatalog";
 export * from "./sensation/Sensation";
 export * from "./sensation/BodyArea";
 export * from "./catalogs/sensationCatalog";
+export * from "./catalogs/contextCatalog";
 export * from "./catalogs/beliefCatalog";
 export * from "./belief/Belief";
 export * from "./belief/BeliefCategory";

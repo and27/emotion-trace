@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import type { BodySensation } from "../../domain/sensation/BodySensation";
 import type { Emotion } from "../../domain/emotion/Emotion";
 import type { Belief } from "../../domain/belief/Belief";
+import type { ContextTag } from "../../domain/context/ContextTag";
 
 import { CreateBodySensationsScreen } from "./CreateBodySensationsScreen";
 import { useCreateEmotionalEntry } from "../hooks/useCreateEmotionalEntry";
@@ -23,13 +24,14 @@ export function CreateEntryFlowScreen() {
   const [bodySensations, setBodySensations] = useState<BodySensation[]>([]);
   const [emotions, setEmotions] = useState<Emotion[]>([]);
   const [beliefs, setBeliefs] = useState<Belief[]>([]);
+  const [contexts] = useState<ContextTag[]>([]);
   const [contextNote, setContextNote] = useState("");
 
   async function handleSave() {
     await create({
       emotions: emotions.map((e) => e),
       beliefs,
-      contexts: [],
+      contexts,
       contextNote,
       bodySensations,
     });
