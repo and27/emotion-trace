@@ -11,8 +11,9 @@ import { CreateBodySensationsScreen } from "./CreateBodySensationsScreen";
 import { useCreateEmotionalEntry } from "../hooks/useCreateEmotionalEntry";
 import { SelectEmotionsScreen } from "./SelectEmotionsScreen";
 import { SelectBeliefsScreen } from "./SelectBeliefsScreen";
+import { ContextNoteScreen } from "./ContextNoteScreen";
 
-type Step = "body" | "emotions" | "beliefs";
+type Step = "body" | "emotions" | "beliefs" | "context";
 
 export function CreateEntryFlowScreen() {
   const router = useRouter();
@@ -22,12 +23,14 @@ export function CreateEntryFlowScreen() {
   const [bodySensations, setBodySensations] = useState<BodySensation[]>([]);
   const [emotions, setEmotions] = useState<Emotion[]>([]);
   const [beliefs, setBeliefs] = useState<Belief[]>([]);
+  const [contextNote, setContextNote] = useState("");
 
   async function handleSave() {
     await create({
       emotions: emotions.map((e) => e),
       beliefs,
       contexts: [],
+      contextNote,
       bodySensations,
     });
 
@@ -56,10 +59,20 @@ export function CreateEntryFlowScreen() {
     );
   }
 
+  if (step === "beliefs") {
+    return (
+      <SelectBeliefsScreen
+        value={beliefs}
+        onChange={setBeliefs}
+        onContinue={() => setStep("context")}
+      />
+    );
+  }
+
   return (
-    <SelectBeliefsScreen
-      value={beliefs}
-      onChange={setBeliefs}
+    <ContextNoteScreen
+      value={contextNote}
+      onChange={setContextNote}
       onContinue={handleSave}
     />
   );
