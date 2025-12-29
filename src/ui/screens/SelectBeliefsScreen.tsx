@@ -17,23 +17,29 @@ export function SelectBeliefsScreen({ value, onChange, onContinue }: Props) {
   function toggleBelief(belief: Belief) {
     const exists = value.some((b) => b.id === belief.id);
 
-    onChange(exists ? value.filter((b) => b.id !== belief.id) : [...value, belief]);
+    onChange(
+      exists ? value.filter((b) => b.id !== belief.id) : [...value, belief]
+    );
   }
 
-  const categories = Array.from(new Set(BELIEFS.map((belief) => belief.category)));
+  const categories = Array.from(
+    new Set(BELIEFS.map((belief) => belief.category))
+  );
 
   return (
     <div className="p-6 max-w-xl mx-auto">
       <h1 className="text-xl font-semibold mb-6">Which beliefs are present?</h1>
 
       {categories.map((category) => {
-        const beliefs = BELIEFS.filter((b) => b.category === category).sort((a, b) =>
-          a.label.localeCompare(b.label)
+        const beliefs = BELIEFS.filter((b) => b.category === category).sort(
+          (a, b) => a.label.localeCompare(b.label)
         );
 
         return (
           <div key={category} className="mb-6">
-            <h2 className="font-medium mb-2 capitalize">{formatCategory(category)}</h2>
+            <h2 className="text-sm mb-2 text-neutral-500 tracking-[3px] capitalize">
+              {formatCategory(category)}
+            </h2>
 
             <div className="flex flex-wrap gap-2">
               {beliefs.map((belief) => {

@@ -52,12 +52,24 @@ export function EntriesListScreen() {
                   {new Date(entry.createdAt).toLocaleString()}
                 </div>
 
+                <div className="mt-2 flex flex-wrap gap-2 items-center">
+                  <div className="text-xs font-semibold uppercase text-text-muted">
+                    Emotions
+                  </div>
+                  {entry.emotions.length === 0 ? (
+                    <Chip tone="neutral">None</Chip>
+                  ) : (
+                    entry.emotions.map((emotion) => (
+                      <Chip key={emotion.id}>{emotion.label}</Chip>
+                    ))
+                  )}
+                </div>
                 <div className="mt-4 space-y-4">
                   <div>
-                    <div className="text-xs font-semibold uppercase text-text-muted">
-                      Body sensations
-                    </div>
-                    <div className="mt-2 flex flex-wrap gap-2">
+                    <div className="mt-2 flex flex-wrap gap-2 items-center">
+                      <div className="text-xs font-semibold uppercase text-text-muted">
+                        Body sensations
+                      </div>
                       {entry.bodySensations.map((bs, i) => (
                         <Chip key={`${bs.bodyArea}-${bs.sensation}-${i}`}>
                           {bs.sensation} · {bs.bodyArea}
@@ -66,35 +78,18 @@ export function EntriesListScreen() {
                     </div>
                   </div>
 
-                  <div>
-                    <div className="text-xs font-semibold uppercase text-text-muted">
-                      Emotions
-                    </div>
-                    <div className="mt-2 flex flex-wrap gap-2">
-                      {entry.emotions.length === 0 ? (
-                        <Chip tone="neutral">None</Chip>
-                      ) : (
-                        entry.emotions.map((emotion) => (
-                          <Chip key={emotion.id}>{emotion.label}</Chip>
-                        ))
-                      )}
-                    </div>
-                  </div>
-
                   {entry.beliefs && (
-                    <div>
+                    <div className="mt-2 flex flex-wrap gap-2 items-center">
                       <div className="text-xs font-semibold uppercase text-text-muted">
                         Beliefs
                       </div>
-                      <div className="mt-2 flex flex-wrap gap-2">
-                        {entry.beliefs?.length === 0 ? (
-                          <Chip tone="neutral">None</Chip>
-                        ) : (
-                          entry.beliefs?.map((belief) => (
-                            <Chip key={belief.id}>{belief.label}</Chip>
-                          ))
-                        )}
-                      </div>
+                      {entry.beliefs?.length === 0 ? (
+                        <Chip tone="neutral">None</Chip>
+                      ) : (
+                        entry.beliefs?.map((belief) => (
+                          <Chip key={belief.id}>{belief.label}</Chip>
+                        ))
+                      )}
                     </div>
                   )}
                 </div>
