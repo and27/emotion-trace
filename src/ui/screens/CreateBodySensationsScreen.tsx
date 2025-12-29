@@ -7,9 +7,8 @@ import type { BodyArea } from "../../domain/sensation/BodyArea";
 import type { Sensation } from "../../domain/sensation/Sensation";
 import { SensationChoice } from "../components/SensationChoice";
 import { Button } from "../components/Button";
-
-const BODY_AREAS = ["chest", "stomach", "head"] as const;
-const SENSATIONS = ["tension", "heaviness", "heat"] as const;
+import { BODY_AREAS } from "../../domain/catalogs/bodyAreaCatalog";
+import { SENSATIONS } from "../../domain/catalogs/sensationCatalog";
 
 type CreateBodySensationsScreenProps = {
   value?: BodySensation[];
@@ -87,7 +86,7 @@ export function CreateBodySensationsScreen({
           {BODY_AREAS.map((area) => (
             <SensationChoice
               key={area}
-              label={area}
+              label={area.replace(/_/g, " ")}
               selected={activeArea === area}
               onSelect={() => selectBodyArea(area)}
             />
@@ -99,19 +98,32 @@ export function CreateBodySensationsScreen({
         <div className="text-sm uppercase tracking-wide text-gray-500 mb-2">
           2. Sensation
         </div>
-        <div className="flex flex-wrap gap-2">
-          {SENSATIONS.map((sensation) => (
-            <SensationChoice
-              key={sensation}
-              label={sensation}
-              selected={activeSensation === sensation}
-              onSelect={() => selectSensation(sensation)}
-            />
-          ))}
-        </div>
+        {activeArea ? (
+          <div className="flex flex-wrap gap-2">
+            {SENSATIONS.map((sensation) => (
+              <SensationChoice
+                key={sensation}
+                label={sensation.replace(/_/g, " ")}
+                selected={activeSensation === sensation}
+                onSelect={() => selectSensation(sensation)}
+              />
+            ))}
+          </div>
+        ) : (
+          <p className="text-sm text-gray-500">
+            Choose a body area to see sensations.
+          </p>
+        )}
       </div>
+      <Button
+        variant="secondary"
+        disabled={!activeArea || !activeSensation}
+        onClick={addSelection}
+      >
+        Add selection
+      </Button>
 
-      <div className="mb-6">
+      <div className="mb-6 mt-3">
         <div className="text-sm uppercase tracking-wide text-gray-500 mb-2">
           Selected
         </div>
@@ -125,7 +137,8 @@ export function CreateBodySensationsScreen({
                 className="flex items-center justify-between rounded border px-3 py-2"
               >
                 <span className="capitalize">
-                  {item.bodyArea} - {item.sensation}
+                  {item.bodyArea.replace(/_/g, " ")} -{" "}
+                  {item.sensation.replace(/_/g, " ")}
                 </span>
                 <button
                   type="button"
@@ -139,14 +152,6 @@ export function CreateBodySensationsScreen({
           </ul>
         )}
       </div>
-
-      <Button
-        variant="secondary"
-        disabled={!activeArea || !activeSensation}
-        onClick={addSelection}
-      >
-        Add selection
-      </Button>
 
       <Button disabled={selected.length === 0} onClick={save}>
         {onContinue ? "Continue" : "Save"}
