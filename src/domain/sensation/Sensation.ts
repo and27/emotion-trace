@@ -7,4 +7,6 @@ export type Sensation =
   | "tingling"
   | "heaviness"
   | "emptiness"
-  | "fatigue";
+  | "fatigue"
+  | "lightness"
+  | "openness";

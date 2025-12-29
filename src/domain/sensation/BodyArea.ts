@@ -9,4 +9,6 @@ export type BodyArea =
   | "shoulders"
   | "arms_hands"
   | "legs"
+  | "neck"
+  | "eyes"
   | "whole_body";

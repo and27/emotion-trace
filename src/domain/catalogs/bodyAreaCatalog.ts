@@ -11,5 +11,6 @@ export const BODY_AREAS: BodyArea[] = [
   "shoulders",
   "arms_hands",
   "legs",
+  "eyes",
   "whole_body",
 ];

@@ -10,4 +10,6 @@ export const SENSATIONS: Sensation[] = [
   "heaviness",
   "emptiness",
   "fatigue",
+  "lightness",
+  "openness",
 ];
