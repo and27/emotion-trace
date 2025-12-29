@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useEmotionalEntries } from "../hooks/useEmotionalEntries";
 import { Card } from "../components/Card";
 import { Chip } from "../components/Chip";
@@ -9,6 +10,21 @@ import Link from "next/link";
 
 export function EntriesListScreen() {
   const { entries, loading } = useEmotionalEntries();
+  const [expandedEntries, setExpandedEntries] = useState<Set<string>>(
+    () => new Set()
+  );
+
+  function toggleExpanded(entryId: string) {
+    setExpandedEntries((prev) => {
+      const next = new Set(prev);
+      if (next.has(entryId)) {
+        next.delete(entryId);
+      } else {
+        next.add(entryId);
+      }
+      return next;
+    });
+  }
 
   if (loading) {
     return (
@@ -29,7 +45,7 @@ export function EntriesListScreen() {
             A snapshot of your recent check-ins.
           </p>
         </div>
-        <Button>
+        <Button asChild>
           <Link href="/create">Create entry</Link>
         </Button>
       </div>
@@ -45,57 +61,102 @@ export function EntriesListScreen() {
       <ul className="space-y-6">
         {[...entries]
           .sort((a, b) => b.createdAt - a.createdAt)
-          .map((entry) => (
-            <li key={entry.id}>
-              <Card>
-                <div className="text-xs font-medium uppercase tracking-wide text-text-muted">
-                  {new Date(entry.createdAt).toLocaleString()}
-                </div>
+          .map((entry) => {
+            const isExpanded = expandedEntries.has(entry.id);
 
-                <div className="mt-2 flex flex-wrap gap-2 items-center">
-                  <div className="text-xs font-semibold uppercase text-text-muted">
-                    Emotions
-                  </div>
-                  {entry.emotions.length === 0 ? (
-                    <Chip tone="neutral">None</Chip>
-                  ) : (
-                    entry.emotions.map((emotion) => (
-                      <Chip key={emotion.id}>{emotion.label}</Chip>
-                    ))
-                  )}
-                </div>
-                <div className="mt-4 space-y-4">
-                  <div>
-                    <div className="mt-2 flex flex-wrap gap-2 items-center">
-                      <div className="text-xs font-semibold uppercase text-text-muted">
-                        Body sensations
-                      </div>
-                      {entry.bodySensations.map((bs, i) => (
-                        <Chip key={`${bs.bodyArea}-${bs.sensation}-${i}`}>
-                          {bs.sensation} · {bs.bodyArea}
-                        </Chip>
-                      ))}
+            return (
+              <li key={entry.id}>
+                <Card>
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div className="text-xs font-medium uppercase tracking-wide text-text-muted">
+                      {new Date(entry.createdAt).toLocaleString()}
                     </div>
+                    <button
+                      type="button"
+                      onClick={() => toggleExpanded(entry.id)}
+                      className="text-xs font-semibold text-foreground hover:text-text-muted"
+                    >
+                      {isExpanded ? "Hide" : "See more"}
+                    </button>
                   </div>
 
-                  {entry.beliefs && (
-                    <div className="mt-2 flex flex-wrap gap-2 items-center">
-                      <div className="text-xs font-semibold uppercase text-text-muted">
-                        Beliefs
+                  <div className="mt-3 flex flex-wrap gap-2 items-center">
+                    <div className="text-xs font-semibold uppercase text-text-muted">
+                      Emotions
+                    </div>
+                    {entry.emotions.length === 0 ? (
+                      <Chip tone="neutral">None</Chip>
+                    ) : (
+                      entry.emotions.map((emotion) => (
+                        <Chip key={emotion.id}>{emotion.label}</Chip>
+                      ))
+                    )}
+                  </div>
+
+                  <div className="mt-3 flex flex-wrap gap-2 items-center">
+                    <div className="text-xs font-semibold uppercase text-text-muted">
+                      Context tags
+                    </div>
+                    {entry.contexts.length === 0 ? (
+                      <Chip tone="neutral">None</Chip>
+                    ) : (
+                      entry.contexts.map((tag) => (
+                        <Chip key={tag.id}>{tag.label}</Chip>
+                      ))
+                    )}
+                  </div>
+
+                  {isExpanded && (
+                    <div className="mt-3 space-y-3">
+                      <div>
+                        <div className="mt-2 flex flex-wrap gap-2 items-center">
+                          <div className="text-xs font-semibold uppercase text-text-muted">
+                            Body sensations
+                          </div>
+                          {entry.bodySensations.map((bs, i) => (
+                            <Chip key={`${bs.bodyArea}-${bs.sensation}-${i}`}>
+                              {bs.sensation} · {bs.bodyArea}
+                            </Chip>
+                          ))}
+                        </div>
                       </div>
-                      {entry.beliefs?.length === 0 ? (
-                        <Chip tone="neutral">None</Chip>
-                      ) : (
-                        entry.beliefs?.map((belief) => (
-                          <Chip key={belief.id}>{belief.label}</Chip>
-                        ))
+
+                      {entry.beliefs && (
+                        <div className="flex flex-wrap gap-2 items-center">
+                          <div className="text-xs font-semibold uppercase text-text-muted">
+                            Beliefs
+                          </div>
+                          {entry.beliefs?.length === 0 ? (
+                            <Chip tone="neutral">None</Chip>
+                          ) : (
+                            entry.beliefs?.map((belief) => (
+                              <Chip key={belief.id}>{belief.label}</Chip>
+                            ))
+                          )}
+                        </div>
                       )}
+
+                      <div className="mt-2">
+                        <div className="text-xs font-semibold uppercase text-text-muted">
+                          Context note
+                        </div>
+                        {entry.contextNote &&
+                        entry.contextNote.trim() !== "" ? (
+                          <p className="mt-2 text-sm text-foreground">
+                            {entry.contextNote}
+                          </p>
+                        ) : (
+                          <div className="mt-2">
+                            <Chip tone="neutral">None</Chip>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   )}
-                </div>
-              </Card>
-            </li>
-          ))}
+                </Card>
+              </li>
+            );
+          })}
       </ul>
     </div>
   );
