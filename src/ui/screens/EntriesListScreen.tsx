@@ -45,8 +45,12 @@ export function EntriesListScreen() {
             A snapshot of your recent check-ins.
           </p>
         </div>
-        <Button asChild>
-          <Link href="/create">Create entry</Link>
+        <Button
+          asChild
+          className="rounded-lg aspect-square text-xl"
+          aria-label="Create entry"
+        >
+          <Link href="/create">+</Link>
         </Button>
       </div>
 
