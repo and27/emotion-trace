@@ -1,7 +1,7 @@
 "use client";
 
-import type { Emotion } from "../../domain/emotion/Emotion";
-import { EMOTION_FAMILIES } from "../../domain/catalogs/emotionFamilies";
+import type { Emotion } from "../../domain/emotions/checkin/Emotion";
+import { EMOTION_FAMILIES } from "../../domain/emotions/checkin/emotionFamilies";
 import { EMOTIONS } from "@/src/domain";
 import { Button } from "../components/Button";
 

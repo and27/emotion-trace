@@ -12,7 +12,6 @@ export * from "./belief/BeliefCategory";
 export * from "./context/ContextTag";
 export * from "./entry/EmotionalEntry";
 export * from "./entry/createEmotionalEntry";
-export * from "./emotions/EmotionFamily";
 export * from "./emotions/EmotionVariant";
 export * from "./emotions/familiesCatalog";
 export * from "./emotions/variants";

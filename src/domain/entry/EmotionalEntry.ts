@@ -1,5 +1,5 @@
 import { ContextTag } from "../context/ContextTag";
-import { Emotion } from "../emotion/Emotion";
+import { Emotion } from "../emotions/checkin/Emotion";
 import { Belief } from "../belief/Belief";
 import { BodySensation } from "../sensation/BodySensation";
 

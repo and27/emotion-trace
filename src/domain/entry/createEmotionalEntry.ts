@@ -2,10 +2,10 @@ import { EmotionalEntry } from "./EmotionalEntry";
 import { BELIEFS } from "../catalogs/beliefCatalog";
 import { CONTEXT_TAGS } from "../catalogs/contextCatalog";
 import type { ContextTag } from "../context/ContextTag";
-import { EMOTIONS } from "../catalogs/emotionCatalog";
+import { EMOTIONS } from "../emotions/checkin/emotionCatalog";
 import type { Belief } from "../belief/Belief";
 import { BodySensation } from "../sensation/BodySensation";
-import { Emotion } from "../emotion/Emotion";
+import { Emotion } from "../emotions/checkin/Emotion";
 
 type CreateEmotionalEntryInput = {
   emotions: Emotion[];

@@ -1,4 +1,4 @@
-import { ArousalLevel } from "../catalogs/arousal";
+import { ArousalLevel } from "../../catalogs/arousal";
 import { EmotionFamily } from "./emotionFamilies";
 
 export type Emotion = {

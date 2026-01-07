@@ -1,9 +1,9 @@
 import { describe, it, expect } from "vitest";
 import { createEmotionalEntry } from "./createEmotionalEntry";
-import { EMOTIONS } from "../catalogs/emotionCatalog";
+import { EMOTIONS } from "../emotions/checkin/emotionCatalog";
 import { BELIEFS } from "../catalogs/beliefCatalog";
 import { CONTEXT_TAGS } from "../catalogs/contextCatalog";
-import type { Emotion } from "../emotion/Emotion";
+import type { Emotion } from "../emotions/checkin/Emotion";
 import type { Belief } from "../belief/Belief";
 import type { ContextTag } from "../context/ContextTag";
 

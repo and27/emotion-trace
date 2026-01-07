@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import type { BodySensation } from "../../domain/sensation/BodySensation";
-import type { Emotion } from "../../domain/emotion/Emotion";
+import type { Emotion } from "../../domain/emotions/checkin/Emotion";
 import type { Belief } from "../../domain/belief/Belief";
 import type { ContextTag } from "../../domain/context/ContextTag";
 
