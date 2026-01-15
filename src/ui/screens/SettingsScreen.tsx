@@ -10,7 +10,7 @@ import { SectionTitle } from "../components/SectionTitle";
 import Link from "next/link";
 
 type ExportPayload = {
-  version: 1;
+  version: 1 | 2;
   exportedAt: string;
   entries: EmotionalEntry[];
 };
@@ -27,7 +27,7 @@ export function SettingsScreen() {
     try {
       const entries = await repo.getAll();
       const payload: ExportPayload = {
-        version: 1,
+        version: 2,
         exportedAt: new Date().toISOString(),
         entries,
       };
@@ -61,12 +61,17 @@ export function SettingsScreen() {
         throw new Error("Invalid file format");
       }
 
+      const normalized = entries.map((entry) => ({
+        ...entry,
+        activationLevel: entry.activationLevel ?? 3,
+      }));
+
       if (replaceExisting) {
         const db = new EmotionalEntryDatabase();
         await db.entries.clear();
       }
 
-      for (const entry of entries) {
+      for (const entry of normalized) {
         await repo.save(entry);
       }
 
@@ -85,7 +90,7 @@ export function SettingsScreen() {
           Settings
         </SectionTitle>
         <Button asChild variant="secondary">
-          <Link href="/">Back to entries</Link>
+          <Link href="/history">Back to history</Link>
         </Button>
       </div>
       <p className="mt-2 text-sm text-text-muted">

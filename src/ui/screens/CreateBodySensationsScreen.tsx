@@ -14,11 +14,13 @@ import { SENSATIONS } from "../../domain/catalogs/sensationCatalog";
 type CreateBodySensationsScreenProps = {
   value?: BodySensation[];
   onContinue?: (value: BodySensation[]) => void;
+  onBack?: () => void;
 };
 
 export function CreateBodySensationsScreen({
   value,
   onContinue,
+  onBack,
 }: CreateBodySensationsScreenProps) {
   const { create } = useCreateEmotionalEntry();
   const activationFallback: ActivationLevel = 3;
@@ -79,6 +81,16 @@ export function CreateBodySensationsScreen({
 
   return (
     <div className="content-narrow">
+      {onBack && (
+        <button
+          type="button"
+          onClick={onBack}
+          className="mb-4 inline-flex items-center gap-2 text-sm text-text-muted hover:text-foreground"
+        >
+          <span aria-hidden="true">&lt;</span>
+          <span>Back</span>
+        </button>
+      )}
       <h1 className="text-xl font-semibold mb-6">Body sensations</h1>
 
       <div className="mb-6">

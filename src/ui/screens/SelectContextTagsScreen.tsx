@@ -19,12 +19,14 @@ type Props = {
   value: ContextTag[];
   onChange: (next: ContextTag[]) => void;
   onContinue?: () => void;
+  onBack?: () => void;
 };
 
 export function SelectContextTagsScreen({
   value,
   onChange,
   onContinue,
+  onBack,
 }: Props) {
   function toggleTag(tag: ContextTag) {
     const exists = value.some((t) => t.id === tag.id);
@@ -37,6 +39,16 @@ export function SelectContextTagsScreen({
 
   return (
     <div className="content-narrow">
+      {onBack && (
+        <button
+          type="button"
+          onClick={onBack}
+          className="mb-4 inline-flex items-center gap-2 text-sm text-text-muted hover:text-foreground"
+        >
+          <span aria-hidden="true">&lt;</span>
+          <span>Back</span>
+        </button>
+      )}
       <h1 className="text-xl font-semibold mb-6">What contexts apply?</h1>
 
       {categories.map((category) => {

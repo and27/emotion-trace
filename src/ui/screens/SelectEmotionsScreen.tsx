@@ -9,9 +9,15 @@ type Props = {
   value: Emotion[];
   onChange: (next: Emotion[]) => void;
   onContinue?: () => void;
+  onBack?: () => void;
 };
 
-export function SelectEmotionsScreen({ value, onChange, onContinue }: Props) {
+export function SelectEmotionsScreen({
+  value,
+  onChange,
+  onContinue,
+  onBack,
+}: Props) {
   function toggleEmotion(emotion: Emotion) {
     const exists = value.some((e) => e.id === emotion.id);
 
@@ -22,6 +28,16 @@ export function SelectEmotionsScreen({ value, onChange, onContinue }: Props) {
 
   return (
     <div className="content-narrow">
+      {onBack && (
+        <button
+          type="button"
+          onClick={onBack}
+          className="mb-4 inline-flex items-center gap-2 text-sm text-text-muted hover:text-foreground"
+        >
+          <span aria-hidden="true">&lt;</span>
+          <span>Back</span>
+        </button>
+      )}
       <h1 className="text-xl font-semibold mb-6">What emotions are present?</h1>
 
       {EMOTION_FAMILIES.map((family) => {

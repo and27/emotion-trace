@@ -56,10 +56,38 @@ export function CreateEntryFlowScreen() {
     router.push("/");
   }
 
+  function handleBack() {
+    if (mode === "quick") {
+      router.push("/");
+      return;
+    }
+
+    switch (step) {
+      case "body":
+        router.push("/");
+        return;
+      case "emotions":
+        setStep("body");
+        return;
+      case "contexts":
+        setStep("emotions");
+        return;
+      case "beliefs":
+        setStep("contexts");
+        return;
+      case "context":
+        setStep("beliefs");
+        return;
+      default:
+        router.push("/");
+    }
+  }
+
   if (step === "body") {
     return (
       <CreateBodySensationsScreen
         value={bodySensations}
+        onBack={handleBack}
         onContinue={(next) => {
           setBodySensations(next);
           setStep("emotions");
@@ -73,6 +101,7 @@ export function CreateEntryFlowScreen() {
       <SelectEmotionsScreen
         value={emotions}
         onChange={setEmotions}
+        onBack={handleBack}
         onContinue={() => setStep("contexts")}
       />
     );
@@ -83,6 +112,7 @@ export function CreateEntryFlowScreen() {
       <SelectContextTagsScreen
         value={contexts}
         onChange={setContexts}
+        onBack={handleBack}
         onContinue={() => setStep("beliefs")}
       />
     );
@@ -93,6 +123,7 @@ export function CreateEntryFlowScreen() {
       <SelectBeliefsScreen
         value={beliefs}
         onChange={setBeliefs}
+        onBack={handleBack}
         onContinue={() => setStep("context")}
       />
     );
@@ -102,6 +133,7 @@ export function CreateEntryFlowScreen() {
     <ContextNoteScreen
       value={contextNote}
       onChange={setContextNote}
+      onBack={handleBack}
       onContinue={handleSave}
     />
   );

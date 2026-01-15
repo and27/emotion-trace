@@ -9,13 +9,19 @@ type Props = {
   value: Belief[];
   onChange: (next: Belief[]) => void;
   onContinue?: () => void;
+  onBack?: () => void;
 };
 
 function formatCategory(category: Belief["category"]) {
   return category.replace(/_/g, " ");
 }
 
-export function SelectBeliefsScreen({ value, onChange, onContinue }: Props) {
+export function SelectBeliefsScreen({
+  value,
+  onChange,
+  onContinue,
+  onBack,
+}: Props) {
   const [valence, setValence] = useState<Belief["valence"]>("negative");
 
   function toggleBelief(belief: Belief) {
@@ -35,6 +41,16 @@ export function SelectBeliefsScreen({ value, onChange, onContinue }: Props) {
 
   return (
     <div className="content-narrow">
+      {onBack && (
+        <button
+          type="button"
+          onClick={onBack}
+          className="mb-4 inline-flex items-center gap-2 text-sm text-text-muted hover:text-foreground"
+        >
+          <span aria-hidden="true">&lt;</span>
+          <span>Back</span>
+        </button>
+      )}
       <h1 className="text-xl font-semibold mb-6">Which beliefs are present?</h1>
 
       <div className="mb-6 flex items-center gap-2">
