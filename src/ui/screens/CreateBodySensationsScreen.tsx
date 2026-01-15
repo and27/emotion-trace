@@ -75,7 +75,7 @@ export function CreateBodySensationsScreen({
   }
 
   return (
-    <div className="p-6 max-w-xl mx-auto">
+    <div className="p-3 max-w-xl mx-auto">
       <h1 className="text-xl font-semibold mb-6">Body sensations</h1>
 
       <div className="mb-6">

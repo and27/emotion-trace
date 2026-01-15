@@ -2,11 +2,9 @@ import { Sensation } from "../sensation/Sensation";
 
 export const SENSATIONS: Sensation[] = [
   "tension",
-  "pressure",
   "tightness",
   "heat",
   "burning",
-  "cold",
   "tingling",
   "heaviness",
   "emptiness",

@@ -21,7 +21,7 @@ export function SelectEmotionsScreen({ value, onChange, onContinue }: Props) {
   }
 
   return (
-    <div className="p-6 max-w-xl mx-auto">
+    <div className="p-3 max-w-xl mx-auto">
       <h1 className="text-xl font-semibold mb-6">What emotions are present?</h1>
 
       {EMOTION_FAMILIES.map((family) => {

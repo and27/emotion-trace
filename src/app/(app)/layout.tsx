@@ -1,4 +1,3 @@
-import { BottomNav } from "@/src/ui/components/BottomNav";
 import { HeaderMenu } from "@/src/ui/components/HeaderMenu";
 
 export default function AppLayout({
@@ -17,7 +16,6 @@ export default function AppLayout({
         </header>
         {children}
       </div>
-      <BottomNav />
     </section>
   );
 }

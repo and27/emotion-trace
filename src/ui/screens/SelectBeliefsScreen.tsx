@@ -25,13 +25,15 @@ export function SelectBeliefsScreen({ value, onChange, onContinue }: Props) {
     );
   }
 
-  const filteredBeliefs = BELIEFS.filter((belief) => belief.valence === valence);
+  const filteredBeliefs = BELIEFS.filter(
+    (belief) => belief.valence === valence
+  );
   const categories = Array.from(
     new Set(filteredBeliefs.map((belief) => belief.category))
   );
 
   return (
-    <div className="p-6 max-w-xl mx-auto">
+    <div className="p-3 max-w-xl mx-auto">
       <h1 className="text-xl font-semibold mb-6">Which beliefs are present?</h1>
 
       <div className="mb-6 flex items-center gap-2">

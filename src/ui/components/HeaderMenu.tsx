@@ -7,7 +7,6 @@ import { usePathname } from "next/navigation";
 const items = [
   { href: "/", label: "Check-in" },
   { href: "/learn", label: "Learn" },
-  { href: "/create", label: "New entry" },
   { href: "/settings", label: "Settings" },
 ];
 
@@ -33,7 +32,7 @@ export function HeaderMenu() {
       </button>
 
       {open && (
-        <div className="absolute right-0 mt-2 w-48 overflow-hidden rounded-xl border border-surface-border bg-surface shadow-lg">
+        <div className="absolute right-0 z-20 mt-2 w-48 overflow-hidden rounded-xl border border-surface-border bg-surface shadow-lg">
           <div className="flex flex-col py-2 text-sm">
             {items.map((item) => {
               const isActive = pathname === item.href;

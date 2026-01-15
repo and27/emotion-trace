@@ -1,6 +1,9 @@
 "use client";
 
-import type { ContextTag, ContextCategory } from "../../domain/context/ContextTag";
+import type {
+  ContextTag,
+  ContextCategory,
+} from "../../domain/context/ContextTag";
 import { CONTEXT_TAGS } from "@/src/domain";
 
 const CATEGORY_LABELS: Record<ContextCategory, string> = {
@@ -17,7 +20,11 @@ type Props = {
   onContinue?: () => void;
 };
 
-export function SelectContextTagsScreen({ value, onChange, onContinue }: Props) {
+export function SelectContextTagsScreen({
+  value,
+  onChange,
+  onContinue,
+}: Props) {
   function toggleTag(tag: ContextTag) {
     const exists = value.some((t) => t.id === tag.id);
     onChange(exists ? value.filter((t) => t.id !== tag.id) : [...value, tag]);
@@ -28,7 +35,7 @@ export function SelectContextTagsScreen({ value, onChange, onContinue }: Props) 
   );
 
   return (
-    <div className="p-6 max-w-xl mx-auto">
+    <div className="p-3 max-w-xl mx-auto">
       <h1 className="text-xl font-semibold mb-6">What contexts apply?</h1>
 
       {categories.map((category) => {
@@ -36,9 +43,7 @@ export function SelectContextTagsScreen({ value, onChange, onContinue }: Props) 
 
         return (
           <div key={category} className="mb-6">
-            <h2 className="font-medium mb-2">
-              {CATEGORY_LABELS[category]}
-            </h2>
+            <h2 className="font-medium mb-2">{CATEGORY_LABELS[category]}</h2>
 
             <div className="flex flex-wrap gap-2">
               {tags.map((tag) => {

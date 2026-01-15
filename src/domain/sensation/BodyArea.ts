@@ -7,8 +7,6 @@ export type BodyArea =
   | "abdomen"
   | "back"
   | "shoulders"
-  | "arms_hands"
-  | "legs"
   | "neck"
   | "eyes"
   | "whole_body";
