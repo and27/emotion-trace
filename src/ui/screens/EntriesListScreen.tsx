@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useEmotionalEntries } from "../hooks/useEmotionalEntries";
 import { Card } from "../components/Card";
 import { Chip } from "../components/Chip";
@@ -9,6 +10,13 @@ import Link from "next/link";
 
 export function EntriesListScreen() {
   const { entries, loading } = useEmotionalEntries();
+  const [expandedIds, setExpandedIds] = useState<string[]>([]);
+
+  function toggleExpanded(id: string) {
+    setExpandedIds((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+    );
+  }
 
   if (loading) {
     return (
@@ -52,8 +60,17 @@ export function EntriesListScreen() {
           .map((entry) => (
             <li key={entry.id}>
               <Card>
-                <div className="text-xs font-medium uppercase tracking-wide text-text-muted">
-                  {new Date(entry.createdAt).toLocaleString()}
+                <div className="flex items-start justify-between gap-4">
+                  <div className="text-xs font-medium uppercase tracking-wide text-text-muted">
+                    {new Date(entry.createdAt).toLocaleString()}
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => toggleExpanded(entry.id)}
+                    className="text-xs font-semibold uppercase tracking-wide text-foreground"
+                  >
+                    {expandedIds.includes(entry.id) ? "Ver menos" : "Ver mas"}
+                  </button>
                 </div>
 
                 <div className="mt-2 flex flex-wrap gap-2 items-center">
@@ -81,20 +98,54 @@ export function EntriesListScreen() {
                     ))
                   )}
                 </div>
+
+                {expandedIds.includes(entry.id) && (
+                  <div className="mt-4 space-y-3 text-sm">
+                    <div className="flex flex-wrap gap-2 items-center">
+                      <div className="text-xs font-semibold uppercase text-text-muted">
+                        Beliefs
+                      </div>
+                      {entry.beliefs.length === 0 ? (
+                        <Chip tone="neutral">None</Chip>
+                      ) : (
+                        entry.beliefs.map((belief) => (
+                          <Chip key={belief.id}>{belief.label}</Chip>
+                        ))
+                      )}
+                    </div>
+
+                    <div className="flex flex-wrap gap-2 items-center">
+                      <div className="text-xs font-semibold uppercase text-text-muted">
+                        Body sensations
+                      </div>
+                      {entry.bodySensations.length === 0 ? (
+                        <Chip tone="neutral">None</Chip>
+                      ) : (
+                        entry.bodySensations.map((item) => (
+                          <Chip key={item.bodyArea}>
+                            {item.bodyArea.replace(/_/g, " ")} ·{" "}
+                            {item.sensation.replace(/_/g, " ")}
+                          </Chip>
+                        ))
+                      )}
+                    </div>
+
+                    <div>
+                      <div className="text-xs font-semibold uppercase text-text-muted">
+                        Context note
+                      </div>
+                      <p className="mt-1 text-sm text-foreground">
+                        {entry.contextNote && entry.contextNote.trim().length > 0
+                          ? entry.contextNote
+                          : "None"}
+                      </p>
+                    </div>
+                  </div>
+                )}
               </Card>
             </li>
           ))}
       </ul>
-
-      <div className="fixed bottom-6 right-6">
-        <Button
-          asChild
-          className="rounded-full aspect-square text-lg shadow-md"
-          aria-label="Open settings"
-        >
-          <Link href="/settings">⚙︎</Link>
-        </Button>
-      </div>
     </div>
   );
 }
