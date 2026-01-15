@@ -5,6 +5,7 @@ import { ActivationLevel, Belief, ContextTag, Emotion } from "@/src/domain";
 
 type Input = {
   activationLevel: ActivationLevel;
+  episode?: string;
   emotions: Emotion[];
   beliefs: Belief[];
   contexts: ContextTag[];

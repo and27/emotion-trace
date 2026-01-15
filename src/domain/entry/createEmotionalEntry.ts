@@ -10,6 +10,7 @@ import { ACTIVATION_LEVELS, ActivationLevel } from "./ActivationLevel";
 
 type CreateEmotionalEntryInput = {
   activationLevel: ActivationLevel;
+  episode?: string;
   emotions: Emotion[];
   beliefs: Belief[];
   contexts: ContextTag[];
@@ -48,10 +49,16 @@ export function createEmotionalEntry(
 
   const contexts = CONTEXT_TAGS.filter((tag) => contextIds.includes(tag.id));
 
+  const episode =
+    input.episode && input.episode.trim().length > 0
+      ? input.episode.trim()
+      : undefined;
+
   const entry: EmotionalEntry = {
     id: crypto.randomUUID(),
     createdAt: Date.now(),
     activationLevel: input.activationLevel,
+    episode,
     emotions,
     beliefs,
     contexts,

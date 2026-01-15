@@ -5,6 +5,8 @@ import { Button } from "../components/Button";
 type Props = {
   value: string;
   onChange: (next: string) => void;
+  remindsMeOf: string;
+  onRemindsMeOfChange: (next: string) => void;
   onContinue?: () => void;
   onBack?: () => void;
 };
@@ -12,6 +14,8 @@ type Props = {
 export function ContextNoteScreen({
   value,
   onChange,
+  remindsMeOf,
+  onRemindsMeOfChange,
   onContinue,
   onBack,
 }: Props) {
@@ -31,6 +35,17 @@ export function ContextNoteScreen({
       <p className="text-sm text-text-muted mb-6">
         Add any extra context about why you felt this way. Optional.
       </p>
+
+      <label className="block text-xs font-semibold uppercase tracking-wide text-text-muted mb-2">
+        Reminds me of
+      </label>
+      <input
+        value={remindsMeOf}
+        onChange={(event) => onRemindsMeOfChange(event.target.value)}
+        placeholder="Short label (e.g. math exam)"
+        maxLength={80}
+        className="mb-4 w-full rounded-md border border-surface-border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-accent"
+      />
 
       <textarea
         value={value}

@@ -8,6 +8,7 @@ export interface EmotionalEntry {
   id: string;
   createdAt: number;
   activationLevel: ActivationLevel;
+  episode?: string;
   emotions: Emotion[];
   beliefs: Belief[];
   contexts: ContextTag[];

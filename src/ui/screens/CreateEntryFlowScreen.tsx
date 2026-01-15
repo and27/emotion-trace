@@ -42,10 +42,12 @@ export function CreateEntryFlowScreen() {
   const [beliefs, setBeliefs] = useState<Belief[]>([]);
   const [contexts, setContexts] = useState<ContextTag[]>([]);
   const [contextNote, setContextNote] = useState("");
+  const [remindsMeOf, setRemindsMeOf] = useState("");
 
   async function handleSave() {
     await create({
       activationLevel,
+      episode: remindsMeOf,
       emotions: emotions.map((e) => e),
       beliefs,
       contexts,
@@ -133,6 +135,8 @@ export function CreateEntryFlowScreen() {
     <ContextNoteScreen
       value={contextNote}
       onChange={setContextNote}
+      remindsMeOf={remindsMeOf}
+      onRemindsMeOfChange={setRemindsMeOf}
       onBack={handleBack}
       onContinue={handleSave}
     />
