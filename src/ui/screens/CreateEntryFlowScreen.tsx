@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import type { BodySensation } from "../../domain/sensation/BodySensation";
@@ -12,10 +12,12 @@ import { ACTIVATION_LEVELS } from "../../domain/entry/ActivationLevel";
 
 import { CreateBodySensationsScreen } from "./CreateBodySensationsScreen";
 import { useCreateEmotionalEntry } from "../hooks/useCreateEmotionalEntry";
+import { useEmotionalEntries } from "../hooks/useEmotionalEntries";
 import { SelectEmotionsScreen } from "./SelectEmotionsScreen";
 import { SelectBeliefsScreen } from "./SelectBeliefsScreen";
 import { SelectContextTagsScreen } from "./SelectContextTagsScreen";
 import { ContextNoteScreen } from "./ContextNoteScreen";
+import { findEntrySuggestion } from "../utils/entrySimilarity";
 
 type Step = "body" | "emotions" | "contexts" | "beliefs" | "context";
 
@@ -23,6 +25,8 @@ export function CreateEntryFlowScreen() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { create } = useCreateEmotionalEntry();
+  const { entries, loading } = useEmotionalEntries();
+  const debugSimilarity = searchParams.get("debugSimilarity") === "1";
 
   const mode = searchParams.get("mode");
   const activationParam = Number(searchParams.get("activation"));
@@ -43,6 +47,51 @@ export function CreateEntryFlowScreen() {
   const [contexts, setContexts] = useState<ContextTag[]>([]);
   const [contextNote, setContextNote] = useState("");
   const [remindsMeOf, setRemindsMeOf] = useState("");
+  const [dismissedSuggestionIds, setDismissedSuggestionIds] = useState<
+    string[]
+  >([]);
+
+  const suggestion = useMemo(() => {
+    if (loading) {
+      return null;
+    }
+    return findEntrySuggestion(
+      entries,
+      {
+        activationLevel,
+        episode: remindsMeOf,
+        contextNote,
+        contexts,
+        emotions,
+        beliefs,
+        bodySensations,
+      },
+      {
+        now: Date.now(),
+        windowDays: 14,
+        threshold: 0.6,
+        dismissedIds: dismissedSuggestionIds,
+        query: remindsMeOf,
+        onDebug: debugSimilarity
+          ? (payload) => {
+              console.debug("[entrySimilarity]", payload);
+            }
+          : undefined,
+      }
+    );
+  }, [
+    activationLevel,
+    beliefs,
+    bodySensations,
+    contextNote,
+    contexts,
+    dismissedSuggestionIds,
+    emotions,
+    entries,
+    debugSimilarity,
+    loading,
+    remindsMeOf,
+  ]);
 
   async function handleSave() {
     await create({
@@ -137,6 +186,17 @@ export function CreateEntryFlowScreen() {
       onChange={setContextNote}
       remindsMeOf={remindsMeOf}
       onRemindsMeOfChange={setRemindsMeOf}
+      suggestedEpisode={suggestion?.label}
+      onUseSuggestedEpisode={() => {
+        if (suggestion) {
+          setRemindsMeOf(suggestion.label);
+        }
+      }}
+      onDismissSuggestedEpisode={() => {
+        if (suggestion) {
+          setDismissedSuggestionIds((prev) => [...prev, suggestion.entryId]);
+        }
+      }}
       onBack={handleBack}
       onContinue={handleSave}
     />

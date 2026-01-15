@@ -7,6 +7,9 @@ type Props = {
   onChange: (next: string) => void;
   remindsMeOf: string;
   onRemindsMeOfChange: (next: string) => void;
+  suggestedEpisode?: string;
+  onUseSuggestedEpisode?: () => void;
+  onDismissSuggestedEpisode?: () => void;
   onContinue?: () => void;
   onBack?: () => void;
 };
@@ -16,6 +19,9 @@ export function ContextNoteScreen({
   onChange,
   remindsMeOf,
   onRemindsMeOfChange,
+  suggestedEpisode,
+  onUseSuggestedEpisode,
+  onDismissSuggestedEpisode,
   onContinue,
   onBack,
 }: Props) {
@@ -46,6 +52,33 @@ export function ContextNoteScreen({
         maxLength={80}
         className="mb-4 w-full rounded-md border border-surface-border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-accent"
       />
+
+      {suggestedEpisode && (
+        <div className="mb-4 rounded-lg border border-surface-border bg-surface px-4 py-3 text-sm">
+          <div className="text-xs font-semibold uppercase tracking-wide text-text-muted">
+            Related to
+          </div>
+          <div className="mt-1 text-sm font-medium text-foreground">
+            {suggestedEpisode}
+          </div>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={onUseSuggestedEpisode}
+              className="rounded-full bg-foreground px-3 py-1 text-xs font-semibold text-background"
+            >
+              Use
+            </button>
+            <button
+              type="button"
+              onClick={onDismissSuggestedEpisode}
+              className="rounded-full border border-surface-border px-3 py-1 text-xs font-semibold text-foreground"
+            >
+              Dismiss
+            </button>
+          </div>
+        </div>
+      )}
 
       <textarea
         value={value}
