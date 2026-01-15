@@ -9,5 +9,19 @@ export class EmotionalEntryDatabase extends Dexie {
     this.version(1).stores({
       entries: "id, createdAt",
     });
+    this.version(2)
+      .stores({
+        entries: "id, createdAt",
+      })
+      .upgrade((tx) =>
+        tx
+          .table("entries")
+          .toCollection()
+          .modify((entry) => {
+            if (entry.activationLevel == null) {
+              entry.activationLevel = 3;
+            }
+          })
+      );
   }
 }
