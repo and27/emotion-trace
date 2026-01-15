@@ -1,5 +1,5 @@
-import { EntriesListScreen } from "@/src/ui/screens/EntriesListScreen";
+import { ActivationScreen } from "@/src/ui/screens/ActivationScreen";
 
 export default function HomePage() {
-  return <EntriesListScreen />;
+  return <ActivationScreen />;
 }

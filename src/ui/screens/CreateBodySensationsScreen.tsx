@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useCreateEmotionalEntry } from "../hooks/useCreateEmotionalEntry";
+import type { ActivationLevel } from "../../domain/entry/ActivationLevel";
 import type { BodySensation } from "../../domain/sensation/BodySensation";
 import type { BodyArea } from "../../domain/sensation/BodyArea";
 import type { Sensation } from "../../domain/sensation/Sensation";
@@ -20,6 +21,7 @@ export function CreateBodySensationsScreen({
   onContinue,
 }: CreateBodySensationsScreenProps) {
   const { create } = useCreateEmotionalEntry();
+  const activationFallback: ActivationLevel = 3;
 
   const [selected, setSelected] = useState<BodySensation[]>(value ?? []);
   const [activeArea, setActiveArea] = useState<BodyArea | null>(null);
@@ -65,6 +67,7 @@ export function CreateBodySensationsScreen({
     }
 
     await create({
+      activationLevel: activationFallback,
       emotions: [],
       beliefs: [],
       contexts: [],
@@ -153,7 +156,7 @@ export function CreateBodySensationsScreen({
         )}
       </div>
 
-      <Button disabled={selected.length === 0} onClick={save}>
+      <Button onClick={save}>
         {onContinue ? "Continue" : "Save"}
       </Button>
     </div>

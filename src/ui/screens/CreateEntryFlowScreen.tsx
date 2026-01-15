@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import type { BodySensation } from "../../domain/sensation/BodySensation";
 import type { Emotion } from "../../domain/emotions/checkin/Emotion";
 import type { Belief } from "../../domain/belief/Belief";
 import type { ContextTag } from "../../domain/context/ContextTag";
+import type { ActivationLevel } from "../../domain/entry/ActivationLevel";
+import { ACTIVATION_LEVELS } from "../../domain/entry/ActivationLevel";
 
 import { CreateBodySensationsScreen } from "./CreateBodySensationsScreen";
 import { useCreateEmotionalEntry } from "../hooks/useCreateEmotionalEntry";
@@ -19,9 +21,22 @@ type Step = "body" | "emotions" | "contexts" | "beliefs" | "context";
 
 export function CreateEntryFlowScreen() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { create } = useCreateEmotionalEntry();
 
-  const [step, setStep] = useState<Step>("body");
+  const mode = searchParams.get("mode");
+  const activationParam = Number(searchParams.get("activation"));
+  const activationFallback: ActivationLevel = 3;
+  const activationInitial = ACTIVATION_LEVELS.includes(
+    activationParam as ActivationLevel
+  )
+    ? (activationParam as ActivationLevel)
+    : activationFallback;
+
+  const [step, setStep] = useState<Step>(
+    mode === "quick" ? "context" : "body"
+  );
+  const [activationLevel] = useState<ActivationLevel>(activationInitial);
   const [bodySensations, setBodySensations] = useState<BodySensation[]>([]);
   const [emotions, setEmotions] = useState<Emotion[]>([]);
   const [beliefs, setBeliefs] = useState<Belief[]>([]);
@@ -30,6 +45,7 @@ export function CreateEntryFlowScreen() {
 
   async function handleSave() {
     await create({
+      activationLevel,
       emotions: emotions.map((e) => e),
       beliefs,
       contexts,
