@@ -34,6 +34,7 @@ function getContext(id: string): ContextTag {
 describe("createEmotionalEntry", () => {
   it("creates a valid emotional entry with emotions and beliefs", () => {
     const entry = createEmotionalEntry({
+      activationLevel: 3,
       emotions: [getEmotion("frustration"), getEmotion("enthusiasm")],
       beliefs: [getBelief("not_enough"), getBelief("no_control")],
       contexts: [getContext("work")],
@@ -59,6 +60,7 @@ describe("createEmotionalEntry", () => {
     };
 
     const entry = createEmotionalEntry({
+      activationLevel: 3,
       emotions: [getEmotion("frustration"), fakeEmotion],
       beliefs: [],
       contexts: [],
@@ -77,6 +79,7 @@ describe("createEmotionalEntry", () => {
     };
 
     const entry = createEmotionalEntry({
+      activationLevel: 3,
       emotions: [],
       beliefs: [getBelief("not_safe"), fakeBelief],
       contexts: [],
@@ -94,6 +97,7 @@ describe("createEmotionalEntry", () => {
     };
 
     const entry = createEmotionalEntry({
+      activationLevel: 3,
       emotions: [getEmotion("frustration")],
       beliefs: [],
       contexts: [getContext("work"), fakeContext],
@@ -108,6 +112,7 @@ describe("createEmotionalEntry", () => {
 
     expect(() =>
       createEmotionalEntry({
+        activationLevel: 3,
         emotions: [getEmotion("frustration")],
         beliefs: [],
         contexts: [context, context],
@@ -118,6 +123,7 @@ describe("createEmotionalEntry", () => {
 
   it("stores optional context note", () => {
     const entry = createEmotionalEntry({
+      activationLevel: 3,
       emotions: [getEmotion("frustration")],
       beliefs: [],
       contexts: [],
@@ -130,6 +136,7 @@ describe("createEmotionalEntry", () => {
 
   it("allows empty context note", () => {
     const entry = createEmotionalEntry({
+      activationLevel: 3,
       emotions: [getEmotion("frustration")],
       beliefs: [],
       contexts: [],
@@ -140,19 +147,21 @@ describe("createEmotionalEntry", () => {
     expect(entry.contextNote).toBe("");
   });
 
-  it("requires at least one body sensation", () => {
-    expect(() =>
-      createEmotionalEntry({
-        emotions: [getEmotion("frustration")],
-        beliefs: [],
-        contexts: [],
-        bodySensations: [],
-      })
-    ).toThrow();
+  it("allows empty body sensations", () => {
+    const entry = createEmotionalEntry({
+      activationLevel: 3,
+      emotions: [getEmotion("frustration")],
+      beliefs: [],
+      contexts: [],
+      bodySensations: [],
+    });
+
+    expect(entry.bodySensations).toHaveLength(0);
   });
 
   it("allows multiple body sensations with different areas", () => {
     const entry = createEmotionalEntry({
+      activationLevel: 3,
       emotions: [getEmotion("frustration")],
       beliefs: [],
       contexts: [],
@@ -168,6 +177,7 @@ describe("createEmotionalEntry", () => {
   it("does not allow repeated body areas", () => {
     expect(() =>
       createEmotionalEntry({
+        activationLevel: 3,
         emotions: [getEmotion("frustration")],
         beliefs: [],
         contexts: [],
@@ -184,6 +194,7 @@ describe("createEmotionalEntry", () => {
 
     expect(() =>
       createEmotionalEntry({
+        activationLevel: 3,
         emotions: [],
         beliefs: [belief, belief],
         contexts: [],

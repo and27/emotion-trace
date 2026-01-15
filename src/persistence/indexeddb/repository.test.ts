@@ -7,12 +7,13 @@ describe("DexieEmotionalEntryRepository", () => {
     const repo = new DexieEmotionalEntryRepository();
 
     const entry = createEmotionalEntry({
+      activationLevel: 3,
       emotions: [
         { id: "anxiety", label: "Anxiety", family: "fear", arousal: "high" },
       ],
       beliefs: [],
       contexts: [],
-      bodySensations: [{ bodyArea: "chest", sensation: "cold" }],
+      bodySensations: [{ bodyArea: "chest", sensation: "heat" }],
     });
 
     await repo.save(entry);

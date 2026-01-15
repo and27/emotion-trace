@@ -8,6 +8,7 @@ describe("getAllEmotionalEntries", () => {
     const repo = new InMemoryEmotionalEntryRepository();
 
     const entry1 = createEmotionalEntry({
+      activationLevel: 3,
       emotions: [
         { id: "anxiety", label: "Anxiety", family: "fear", arousal: "high" },
       ],
@@ -17,6 +18,7 @@ describe("getAllEmotionalEntries", () => {
     });
 
     const entry2 = createEmotionalEntry({
+      activationLevel: 2,
       emotions: [
         { id: "fear", label: "Fear", family: "fear", arousal: "high" },
       ],

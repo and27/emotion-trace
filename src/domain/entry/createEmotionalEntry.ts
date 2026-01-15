@@ -6,8 +6,10 @@ import { EMOTIONS } from "../emotions/checkin/emotionCatalog";
 import type { Belief } from "../belief/Belief";
 import { BodySensation } from "../sensation/BodySensation";
 import { Emotion } from "../emotions/checkin/Emotion";
+import { ACTIVATION_LEVELS, ActivationLevel } from "./ActivationLevel";
 
 type CreateEmotionalEntryInput = {
+  activationLevel: ActivationLevel;
   emotions: Emotion[];
   beliefs: Belief[];
   contexts: ContextTag[];
@@ -18,8 +20,8 @@ type CreateEmotionalEntryInput = {
 export function createEmotionalEntry(
   input: CreateEmotionalEntryInput
 ): EmotionalEntry {
-  if (!input.bodySensations || input.bodySensations.length === 0) {
-    throw new Error("At least one body sensation is required");
+  if (!ACTIVATION_LEVELS.includes(input.activationLevel)) {
+    throw new Error("Activation level must be between 1 and 5");
   }
 
   const areas = input.bodySensations.map((bs) => bs.bodyArea);
@@ -49,6 +51,7 @@ export function createEmotionalEntry(
   const entry: EmotionalEntry = {
     id: crypto.randomUUID(),
     createdAt: Date.now(),
+    activationLevel: input.activationLevel,
     emotions,
     beliefs,
     contexts,

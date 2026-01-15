@@ -2,10 +2,12 @@ import { ContextTag } from "../context/ContextTag";
 import { Emotion } from "../emotions/checkin/Emotion";
 import { Belief } from "../belief/Belief";
 import { BodySensation } from "../sensation/BodySensation";
+import { ActivationLevel } from "./ActivationLevel";
 
 export interface EmotionalEntry {
   id: string;
   createdAt: number;
+  activationLevel: ActivationLevel;
   emotions: Emotion[];
   beliefs: Belief[];
   contexts: ContextTag[];
