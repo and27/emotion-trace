@@ -12,6 +12,10 @@ export default function RootLayout({
       <head>
         <link rel="manifest" href="/manifest.webmanifest" />
         <meta name="theme-color" content="#1f3a5f" />
+        <meta
+          name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent"
+        />
       </head>
       <body>
         <AppProviders>{children}</AppProviders>
