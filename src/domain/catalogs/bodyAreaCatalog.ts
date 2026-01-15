@@ -9,6 +9,7 @@ export const BODY_AREAS: BodyArea[] = [
   "abdomen",
   "back",
   "shoulders",
+  "neck",
   "arms_hands",
   "legs",
   "eyes",

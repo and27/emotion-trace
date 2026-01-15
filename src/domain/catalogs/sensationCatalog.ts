@@ -5,6 +5,7 @@ export const SENSATIONS: Sensation[] = [
   "pressure",
   "tightness",
   "heat",
+  "burning",
   "cold",
   "tingling",
   "heaviness",

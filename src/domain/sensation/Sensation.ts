@@ -3,6 +3,7 @@ export type Sensation =
   | "pressure"
   | "tightness"
   | "heat"
+  | "burning"
   | "cold"
   | "tingling"
   | "heaviness"

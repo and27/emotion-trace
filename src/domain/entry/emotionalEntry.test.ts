@@ -73,6 +73,7 @@ describe("createEmotionalEntry", () => {
       id: "inventada",
       label: "Inventada",
       category: "control",
+      valence: "negative",
     };
 
     const entry = createEmotionalEntry({
