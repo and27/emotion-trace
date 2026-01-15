@@ -8,7 +8,7 @@ type Props = {
 
 export function ContextNoteScreen({ value, onChange, onContinue }: Props) {
   return (
-    <div className="p-6 max-w-xl mx-auto">
+    <div className="content-narrow">
       <h1 className="text-xl font-semibold mb-2">Context note</h1>
       <p className="text-sm text-text-muted mb-6">
         Add any extra context about why you felt this way. Optional.

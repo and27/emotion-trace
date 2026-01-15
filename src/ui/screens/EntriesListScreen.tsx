@@ -20,14 +20,14 @@ export function EntriesListScreen() {
 
   if (loading) {
     return (
-      <div className="mx-auto max-w-3xl px-6 py-10">
+      <div className="content-wide">
         <div className="text-sm text-text-muted">Loading...</div>
       </div>
     );
   }
 
   return (
-    <div className="mx-auto max-w-3xl relative pb-16">
+    <div className="content-wide relative pb-10">
       <div className="mb-8 flex items-end justify-between">
         <div>
           <SectionTitle as="h1" className="text-2xl">

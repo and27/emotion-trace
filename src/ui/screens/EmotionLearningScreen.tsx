@@ -113,7 +113,7 @@ export function EmotionLearningScreen() {
   }
 
   return (
-    <div className="mx-auto max-w-2xl space-y-6">
+    <div className="content-medium space-y-6">
       <header className="space-y-2">
         <SectionTitle as="h1" className="text-2xl">
           Learn emotions

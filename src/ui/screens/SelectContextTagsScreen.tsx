@@ -35,7 +35,7 @@ export function SelectContextTagsScreen({
   );
 
   return (
-    <div className="p-3 max-w-xl mx-auto">
+    <div className="content-narrow">
       <h1 className="text-xl font-semibold mb-6">What contexts apply?</h1>
 
       {categories.map((category) => {

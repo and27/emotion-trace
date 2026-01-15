@@ -16,6 +16,13 @@
   --space-4: 1rem;
   --space-6: 1.5rem;
   --space-8: 2rem;
+  --page-pad-x: var(--space-3);
+  --page-pad-y: var(--space-4);
+  --page-pad-bottom: var(--space-6);
+  --content-shell: 64rem;
+  --content-wide: 48rem;
+  --content-medium: 42rem;
+  --content-narrow: 36rem;
 }
 
 @theme inline {
@@ -54,4 +61,36 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --page-pad-x: var(--space-6);
+    --page-pad-y: var(--space-6);
+  }
+}
+
+.page-shell {
+  margin: 0 auto;
+  width: 100%;
+  max-width: var(--content-shell);
+  padding: var(--page-pad-y) var(--page-pad-x) var(--page-pad-bottom);
+}
+
+.content-narrow {
+  margin: 0 auto;
+  width: 100%;
+  max-width: var(--content-narrow);
+}
+
+.content-medium {
+  margin: 0 auto;
+  width: 100%;
+  max-width: var(--content-medium);
+}
+
+.content-wide {
+  margin: 0 auto;
+  width: 100%;
+  max-width: var(--content-wide);
 }

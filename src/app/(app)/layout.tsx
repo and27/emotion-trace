@@ -7,7 +7,7 @@ export default function AppLayout({
 }>) {
   return (
     <section className="min-h-screen bg-background text-foreground">
-      <div className="mx-auto w-full max-w-5xl px-3 md:px-10 py-5 md:py-8 pb-24">
+      <div className="page-shell">
         <header className="mb-6 flex items-center justify-between">
           <div className="text-sm font-semibold uppercase tracking-[3px] text-text-muted">
             GUT

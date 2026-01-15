@@ -33,7 +33,7 @@ export function SelectBeliefsScreen({ value, onChange, onContinue }: Props) {
   );
 
   return (
-    <div className="p-3 max-w-xl mx-auto">
+    <div className="content-narrow">
       <h1 className="text-xl font-semibold mb-6">Which beliefs are present?</h1>
 
       <div className="mb-6 flex items-center gap-2">

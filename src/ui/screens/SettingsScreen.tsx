@@ -79,7 +79,7 @@ export function SettingsScreen() {
   }
 
   return (
-    <div className="mx-auto max-w-2xl px-6 py-10">
+    <div className="content-medium">
       <div className="mb-6 flex items-center justify-between">
         <SectionTitle as="h1" className="text-2xl">
           Settings
