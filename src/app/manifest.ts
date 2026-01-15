@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Emotion Selector",
-    short_name: "Emotions",
+    name: "GUT",
+    short_name: "GUT",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",
