@@ -5,6 +5,7 @@ import type {
   ContextCategory,
 } from "../../domain/context/ContextTag";
 import { CONTEXT_TAGS } from "@/src/domain";
+import { Button } from "../components/Button";
 
 const CATEGORY_LABELS: Record<ContextCategory, string> = {
   work_performance: "Work / performance",
@@ -69,14 +70,7 @@ export function SelectContextTagsScreen({
         );
       })}
 
-      {onContinue && (
-        <button
-          onClick={onContinue}
-          className="mt-4 px-4 py-2 rounded bg-foreground text-background transition disabled:opacity-40"
-        >
-          Continue
-        </button>
-      )}
+      {onContinue && <Button onClick={onContinue}>Continue</Button>}
     </div>
   );
 }

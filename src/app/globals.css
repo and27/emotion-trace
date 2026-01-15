@@ -19,10 +19,10 @@
   --page-pad-x: var(--space-3);
   --page-pad-y: var(--space-4);
   --page-pad-bottom: var(--space-6);
-  --content-shell: 64rem;
-  --content-wide: 48rem;
+  --content-shell: 36rem;
+  --content-wide: 36rem;
   --content-medium: 42rem;
-  --content-narrow: 36rem;
+  --content-narrow: 20rem;
 }
 
 @theme inline {

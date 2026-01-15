@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { Belief } from "../../domain/belief/Belief";
 import { BELIEFS } from "@/src/domain";
+import { Button } from "../components/Button";
 
 type Props = {
   value: Belief[];
@@ -106,13 +107,9 @@ export function SelectBeliefsScreen({ value, onChange, onContinue }: Props) {
       })}
 
       {onContinue && (
-        <button
-          disabled={value.length === 0}
-          onClick={onContinue}
-          className="mt-4 px-4 py-2 bg-black text-white rounded disabled:opacity-40"
-        >
+        <Button disabled={value.length === 0} onClick={onContinue}>
           Continue
-        </button>
+        </Button>
       )}
     </div>
   );

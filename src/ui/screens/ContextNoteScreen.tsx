@@ -1,5 +1,7 @@
 "use client";
 
+import { Button } from "../components/Button";
+
 type Props = {
   value: string;
   onChange: (next: string) => void;
@@ -19,17 +21,10 @@ export function ContextNoteScreen({ value, onChange, onContinue }: Props) {
         onChange={(event) => onChange(event.target.value)}
         placeholder="What was happening?"
         rows={6}
-        className="w-full rounded-md border border-surface-border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-accent"
+        className="mb-5 w-full rounded-md border border-surface-border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-accent"
       />
 
-      {onContinue && (
-        <button
-          onClick={onContinue}
-          className="mt-4 px-4 py-2 rounded bg-foreground text-background transition disabled:opacity-40"
-        >
-          Continue
-        </button>
-      )}
+      {onContinue && <Button onClick={onContinue}>Continue</Button>}
     </div>
   );
 }
