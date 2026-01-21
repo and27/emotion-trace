@@ -10,7 +10,8 @@ type Props = {
   suggestedEpisode?: string;
   onUseSuggestedEpisode?: () => void;
   onDismissSuggestedEpisode?: () => void;
-  onContinue?: () => void;
+  onSave?: () => void;
+  onSaveAndProtocol?: () => void;
   onBack?: () => void;
 };
 
@@ -22,7 +23,8 @@ export function ContextNoteScreen({
   suggestedEpisode,
   onUseSuggestedEpisode,
   onDismissSuggestedEpisode,
-  onContinue,
+  onSave,
+  onSaveAndProtocol,
   onBack,
 }: Props) {
   return (
@@ -88,7 +90,16 @@ export function ContextNoteScreen({
         className="mb-5 w-full rounded-md border border-surface-border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-accent"
       />
 
-      {onContinue && <Button onClick={onContinue}>Continue</Button>}
+      {onSave && (
+        <div className="flex flex-wrap gap-3">
+          <Button variant="secondary" onClick={onSave}>
+            Save
+          </Button>
+          {onSaveAndProtocol && (
+            <Button onClick={onSaveAndProtocol}>Save + Protocol</Button>
+          )}
+        </div>
+      )}
     </div>
   );
 }

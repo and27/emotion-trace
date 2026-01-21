@@ -93,8 +93,8 @@ export function CreateEntryFlowScreen() {
     remindsMeOf,
   ]);
 
-  async function handleSave() {
-    await create({
+  async function saveEntry() {
+    return await create({
       activationLevel,
       episode: remindsMeOf,
       emotions: emotions.map((e) => e),
@@ -103,8 +103,16 @@ export function CreateEntryFlowScreen() {
       contextNote,
       bodySensations,
     });
+  }
 
-    router.push("/");
+  async function handleSave() {
+    await saveEntry();
+    router.push("/history");
+  }
+
+  async function handleSaveAndProtocol() {
+    const entry = await saveEntry();
+    router.push(`/protocol?relatedEntryId=${entry.id}`);
   }
 
   function handleBack() {
@@ -198,7 +206,8 @@ export function CreateEntryFlowScreen() {
         }
       }}
       onBack={handleBack}
-      onContinue={handleSave}
+      onSave={handleSave}
+      onSaveAndProtocol={handleSaveAndProtocol}
     />
   );
 }

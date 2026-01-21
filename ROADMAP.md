@@ -2,12 +2,16 @@
 
 ## Alpha (release gate)
 - Core activation gate + quick/full check-in stable
+- Add Protocol Run flow linked to a check-in (relatedEntryId required)
+- Dual CTAs on check-in completion (Save vs Save + Protocol)
+- Persist protocol runs and include them in import/export
 - Persistence and migration verified on existing data
 - History list usable for recent entries
 - Import/export works reliably
 
 ## Beta (release gate)
 - Entry similarity suggestions feel accurate and stable
+- Draft-saving protocol runs (in-progress state)
 - Basic insights or trends (lightweight)
 - Polished UI states and accessibility review
 
