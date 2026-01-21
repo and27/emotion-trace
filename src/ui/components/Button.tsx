@@ -22,10 +22,14 @@ export const Button = React.forwardRef<
   ButtonProps
 >(({ variant = "primary", asChild = false, className, ...props }, ref) => {
   const Component = asChild ? Slot : "button";
+  const buttonType = asChild
+    ? undefined
+    : (props.type ?? "button");
 
   return (
     <Component
       ref={ref}
+      type={buttonType}
       className={`${baseClassName} ${variantClassName[variant]} ${
         className ?? ""
       }`}
