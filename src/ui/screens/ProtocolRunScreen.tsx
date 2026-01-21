@@ -60,6 +60,7 @@ export function ProtocolRunScreen() {
       </div>
     );
   }
+  const entryId = relatedEntryId;
 
   async function handleSave() {
     if (saving) {
@@ -71,7 +72,7 @@ export function ProtocolRunScreen() {
     await repo.save({
       id: crypto.randomUUID(),
       createdAt: Date.now(),
-      relatedEntryId,
+      relatedEntryId: entryId,
       filters,
       classification,
       context: context.trim().length > 0 ? context.trim() : undefined,
